@@ -2,14 +2,6 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="com.itson_AlKRbon_Dominio" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>org.itson.dominio.Administrador</class>
-    <class>org.itson.dominio.Cajero</class>
-    <class>org.itson.dominio.Categoria</class>
-    <class>org.itson.dominio.Cliente</class>
-    <class>org.itson.dominio.Extra</class>
-    <class>org.itson.dominio.Producto</class>
-    <class>org.itson.dominio.ProductoExtra</class>
-    <class>org.itson.dominio.Usuario</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/alkrbonpos?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
