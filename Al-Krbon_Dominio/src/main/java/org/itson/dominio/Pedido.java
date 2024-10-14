@@ -48,7 +48,7 @@ public class Pedido implements Serializable{
     @JoinColumn(name = "cajeroId")
     private Cajero cajero;
 
-    @OneToMany(mappedBy = "pedidos", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ProductoPedido> productos;
 
     public Pedido() {
