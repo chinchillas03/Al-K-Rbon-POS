@@ -10,15 +10,19 @@ import org.itson.dominio.Cajero;
 import org.itson.dominio.Categoria;
 import org.itson.dominio.Cliente;
 import org.itson.dominio.Extra;
+import org.itson.dominio.Pedido;
 import org.itson.dominio.Producto;
 import org.itson.dominio.ProductoExtra;
+import org.itson.dominio.ProductoPedido;
 import org.itson.dominio.Usuario;
 import org.itson.interfaces.ICategoria;
 import org.itson.interfaces.ICliente;
 import org.itson.interfaces.IExtra;
 import org.itson.interfaces.IFachada;
+import org.itson.interfaces.IPedido;
 import org.itson.interfaces.IProducto;
 import org.itson.interfaces.IProductoExtra;
+import org.itson.interfaces.IProductoPedido;
 import org.itson.interfaces.IUsuario;
 
 /**
@@ -33,6 +37,8 @@ public class FachadaDAO implements IFachada{
     IProducto productoDAO;
     IProductoExtra productoExtraDAO;
     IUsuario usuarioDAO;
+    IPedido pedidoDAO;
+    IProductoPedido productoPedidoDAO;
 
     public FachadaDAO (){
         categoriaDAO = FactoryDAOs.getCategoriaDAO();
@@ -41,6 +47,8 @@ public class FachadaDAO implements IFachada{
         productoDAO = FactoryDAOs.getProductoDAO();
         productoExtraDAO = FactoryDAOs.getProductoExtraDAO();
         usuarioDAO = FactoryDAOs.getUsuarioDAO();
+        pedidoDAO = FactoryDAOs.getPedidoDAO();
+        productoPedidoDAO = FactoryDAOs.getProductoPedidoDAO();
     }
 
     @Override
@@ -163,4 +171,44 @@ public class FachadaDAO implements IFachada{
         return usuarioDAO.consultarUsuarioPorId(id);
     }
 
+    @Override
+    public Pedido registrarPedido(Pedido pedido) {
+        return pedidoDAO.registrarPedido(pedido);
+    }
+    
+    @Override
+    public Pedido eliminarPedido(Pedido pedido) {
+        return pedidoDAO.eliminarPedido(pedido);
+    }
+
+    @Override
+    public List<Pedido> consultarPedidos() {
+        return pedidoDAO.consultarPedidos();
+    }
+
+    @Override
+    public Pedido actualizarPedido(Pedido pedido) {
+        return pedidoDAO.actualizarPedido(pedido);
+    }
+    
+    @Override
+    public ProductoPedido registrarProductoPedido(ProductoPedido pedido) {
+        return productoPedidoDAO.registrarProductoPedido(pedido);
+    }
+    
+    @Override
+    public ProductoPedido eliminarProductoPedido(ProductoPedido pedido) {
+        return productoPedidoDAO.eliminarProductoPedido(pedido);
+    }
+
+    @Override
+    public List<ProductoPedido> consultarProductosPedidos() {
+        return productoPedidoDAO.consultarProductosPedidos();
+    }
+
+    @Override
+    public ProductoPedido actualizarProductoPedido(ProductoPedido pedido) {
+        return productoPedidoDAO.actualizarProductoPedido(pedido);
+    }
+    
 }

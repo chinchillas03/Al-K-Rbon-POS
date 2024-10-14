@@ -10,8 +10,10 @@ import org.itson.dominio.Cajero;
 import org.itson.dominio.Categoria;
 import org.itson.dominio.Cliente;
 import org.itson.dominio.Extra;
+import org.itson.dominio.Pedido;
 import org.itson.dominio.Producto;
 import org.itson.dominio.ProductoExtra;
+import org.itson.dominio.ProductoPedido;
 import org.itson.dominio.Usuario;
 
 /**
@@ -67,5 +69,21 @@ public interface IFachada {
     public Usuario consultarUsuarioParaLogin(String id, String password);
     
     public Usuario consultarUsuarioPorId(Long id);
+    
+    public Pedido registrarPedido(Pedido producto);
+    
+    public Pedido eliminarPedido(Pedido producto);
+    
+    public Pedido actualizarPedido(Pedido producto);
+    
+    public List<Pedido> consultarPedidos();
+    
+    public ProductoPedido registrarProductoPedido(ProductoPedido producto);
+    
+    public ProductoPedido eliminarProductoPedido(ProductoPedido producto);
+    
+    public ProductoPedido actualizarProductoPedido(ProductoPedido producto);
+    
+    public List<ProductoPedido> consultarProductosPedidos();
     
 }

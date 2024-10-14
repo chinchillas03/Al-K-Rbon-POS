@@ -7,8 +7,10 @@ package org.itson.implementaciones;
 import org.itson.interfaces.ICategoria;
 import org.itson.interfaces.ICliente;
 import org.itson.interfaces.IExtra;
+import org.itson.interfaces.IPedido;
 import org.itson.interfaces.IProducto;
 import org.itson.interfaces.IProductoExtra;
+import org.itson.interfaces.IProductoPedido;
 import org.itson.interfaces.IUsuario;
 
 /**
@@ -43,4 +45,13 @@ public class FactoryDAOs {
     public static IUsuario getUsuarioDAO(){
         return new UsuarioDAO();
     }
+    
+    public static IPedido getPedidoDAO(){
+        return new PedidoDAO();
+    }
+    
+    public static IProductoPedido getProductoPedidoDAO(){
+        return new ProductoPedidoDAO();
+    }
+    
 }
