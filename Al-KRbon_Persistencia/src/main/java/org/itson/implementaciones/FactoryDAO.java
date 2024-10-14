@@ -17,9 +17,9 @@ import org.itson.interfaces.IUsuario;
  *
  * @author Usuario
  */
-public class FactoryDAOs {
+public class FactoryDAO {
     
-    public FactoryDAOs(){
+    public FactoryDAO(){
     }
     
     public static ICategoria getCategoriaDAO(){

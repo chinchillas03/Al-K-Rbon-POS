@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.itson.al.krbon_persistencia;
+package org.itson.al.krbon_persistencia;
 
 import org.itson.dominio.Cajero;
 import org.itson.dominio.Cliente;
@@ -16,7 +16,7 @@ import org.itson.implementaciones.FachadaDAO;
  *
  * @author Usuario
  */
-public class AlKRbon_Persistencia {
+public class AlKrbon_Persistencia {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");

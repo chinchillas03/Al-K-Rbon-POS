@@ -17,7 +17,7 @@ public class ConexionBD {
     /**
      * Direccion para la conexión a la base de datos
      */
-    private String direccion = "com.itson_Al-Krbon_Dominio_jar_1.0-SNAPSHOTPU";
+    private String direccion = "org.itson_Al-Krbon_Dominio";
     
     private static EntityManagerFactory factory;
     

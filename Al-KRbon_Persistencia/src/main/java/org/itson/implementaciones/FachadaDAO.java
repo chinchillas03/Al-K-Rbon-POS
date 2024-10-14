@@ -41,14 +41,14 @@ public class FachadaDAO implements IFachada{
     IProductoPedido productoPedidoDAO;
 
     public FachadaDAO (){
-        categoriaDAO = FactoryDAOs.getCategoriaDAO();
-        clienteDAO = FactoryDAOs.getClienteDAO();
-        extraDAO = FactoryDAOs.getExtraDAO();
-        productoDAO = FactoryDAOs.getProductoDAO();
-        productoExtraDAO = FactoryDAOs.getProductoExtraDAO();
-        usuarioDAO = FactoryDAOs.getUsuarioDAO();
-        pedidoDAO = FactoryDAOs.getPedidoDAO();
-        productoPedidoDAO = FactoryDAOs.getProductoPedidoDAO();
+        categoriaDAO = FactoryDAO.getCategoriaDAO();
+        clienteDAO = FactoryDAO.getClienteDAO();
+        extraDAO = FactoryDAO.getExtraDAO();
+        productoDAO = FactoryDAO.getProductoDAO();
+        productoExtraDAO = FactoryDAO.getProductoExtraDAO();
+        usuarioDAO = FactoryDAO.getUsuarioDAO();
+        pedidoDAO = FactoryDAO.getPedidoDAO();
+        productoPedidoDAO = FactoryDAO.getProductoPedidoDAO();
     }
 
     @Override
