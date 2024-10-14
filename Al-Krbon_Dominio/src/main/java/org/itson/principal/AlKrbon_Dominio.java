@@ -4,6 +4,9 @@
 
 package org.itson.principal;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 /**
  *
  * @author Manuel Flores
@@ -11,6 +14,6 @@ package org.itson.principal;
 public class AlKrbon_Dominio {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("org.itson_Al-Krbon_Dominio");
     }
 }
