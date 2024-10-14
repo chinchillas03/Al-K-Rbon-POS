@@ -12,12 +12,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author Usuario
  */
 @Entity
+@Table (name = "extras")
 public class Extra implements Serializable{
     
     @Id
@@ -38,6 +40,14 @@ public class Extra implements Serializable{
         this.id = id;
         this.descripcion = descripcion;
         this.precioExtra = precioExtra;
+    }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
     }
 
     public Long getId() {

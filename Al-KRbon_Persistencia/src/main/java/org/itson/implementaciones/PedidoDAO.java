@@ -29,6 +29,11 @@ public class PedidoDAO implements IPedido{
     public Pedido registrarPedido(Pedido pedido) {
         EntityManager em = null;
         try {
+            
+            if (pedido == null) {
+                System.out.println("Pedido esta vacio");
+            }
+            
             em = manager.createEntityManager();
             em.getTransaction().begin();
             em.persist(pedido);

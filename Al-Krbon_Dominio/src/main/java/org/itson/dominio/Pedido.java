@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -23,6 +24,7 @@ import javax.persistence.TemporalType;
  * @author Usuario
  */
 @Entity
+@Table (name = "pedidos")
 public class Pedido implements Serializable{
     
     @Id
@@ -46,7 +48,7 @@ public class Pedido implements Serializable{
     @JoinColumn(name = "cajeroId")
     private Cajero cajero;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pedidos", cascade = CascadeType.ALL)
     private List<ProductoPedido> productos;
 
     public Pedido() {

@@ -5,7 +5,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("CAJERO")
+@DiscriminatorValue(value = "cajero")
 public class Cajero extends Usuario implements Serializable{
 
     public Cajero() {

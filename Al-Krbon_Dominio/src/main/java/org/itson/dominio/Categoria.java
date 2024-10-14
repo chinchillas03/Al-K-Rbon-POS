@@ -12,12 +12,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author Usuario
  */
 @Entity
+@Table (name = "categorias")
 public class Categoria implements Serializable{
     
     @Id
@@ -26,15 +28,29 @@ public class Categoria implements Serializable{
     private Long id;
     @Column(name = "nombre", nullable = false, length = 80)
     private String descripcion;
-    @OneToMany(mappedBy = "categoria")
+    @OneToMany(mappedBy = "categorias")
     private List<Producto> productos;
 
     public Categoria() {
     }
 
+    public Categoria(Long id, String descripcion, List<Producto> productos) {
+        this.id = id;
+        this.descripcion = descripcion;
+        this.productos = productos;
+    }
+
     public Categoria(String descripcion, List<Producto> productos) {
         this.descripcion = descripcion;
         this.productos = productos;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescripcion() {

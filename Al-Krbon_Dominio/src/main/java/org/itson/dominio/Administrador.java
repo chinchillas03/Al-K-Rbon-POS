@@ -5,7 +5,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("ADMIN")
+@DiscriminatorValue(value = "administrador")
 public class Administrador  extends Usuario implements Serializable{
 
     public Administrador() {

@@ -37,7 +37,7 @@ public class Producto implements Serializable{
     private Categoria categoria;
     @ManyToMany
     @JoinTable(
-        name = "producto_extra",
+        name = "productosExtras",
         joinColumns = @JoinColumn(name = "productoId"),
         inverseJoinColumns = @JoinColumn(name = "extraId")
     )
@@ -108,6 +108,10 @@ public class Producto implements Serializable{
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+    
+    public void agregarExtra (Extra extra){
+        this.extras.add(extra);
     }
     
 }
