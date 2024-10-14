@@ -6,6 +6,7 @@ package org.itson.dominio;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,7 +36,7 @@ public class Producto implements Serializable{
     private String descripcion;
     @Column(name = "precio", nullable = false, length = 10)
     private double precio;
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.PERSIST)
     @JoinColumn(name = "categoriaId", nullable = false)
     private Categoria categoria;
     @ManyToMany

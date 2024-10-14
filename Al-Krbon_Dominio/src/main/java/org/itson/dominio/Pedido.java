@@ -5,6 +5,7 @@
 package org.itson.dominio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -52,6 +53,7 @@ public class Pedido implements Serializable{
     private List<ProductoPedido> productos;
 
     public Pedido() {
+        this.productos = new ArrayList<>();
     }
 
     public Pedido(Long id, Date fechaHoraPedido, String estado, String formaEntrega, String opinion, Double calificacion, Double total, Cliente cliente, Cajero cajero, List<ProductoPedido> productos) {
@@ -68,7 +70,8 @@ public class Pedido implements Serializable{
     }
     
     public void agregarProductoPedido(ProductoPedido producto){
-        productos.add(producto);
+        this.productos.add(producto);
+        producto.setPedido(this);
     }
 
     public Long getId() {
