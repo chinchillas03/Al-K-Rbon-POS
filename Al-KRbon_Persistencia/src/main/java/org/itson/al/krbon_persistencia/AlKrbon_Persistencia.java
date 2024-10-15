@@ -23,8 +23,7 @@ import org.itson.implementaciones.FachadaDAO;
 public class AlKrbon_Persistencia {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
-
+        
         FachadaDAO persis = new FachadaDAO();
 
         try {
@@ -64,7 +63,8 @@ public class AlKrbon_Persistencia {
             pedido.setFechaHoraPedido(new java.util.Date());
             pedido.setFormaEntrega("Entrega a domicilio");
             pedido.setEstado("Pendiente");
-            pedido.setOpinion("Por favor, no demoren.");
+            pedido.setOpinion("Por favor, no demoren."); 
+            pedido.setCalificacion(9.99);
             pedido.setTotal(70.0);
 
             ProductoPedido productoPedido = new ProductoPedido();
