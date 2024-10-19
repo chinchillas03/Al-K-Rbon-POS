@@ -33,7 +33,7 @@ public class ControlPedido implements IControlPedido {
     }
 
     @Override
-    public void eliminarPedido(Long id) {
+    public Pedido eliminarPedido(Pedido pedido) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

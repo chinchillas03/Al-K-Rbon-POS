@@ -4,10 +4,17 @@
  */
 package org.itson.interfaces;
 
+import java.util.List;
+import org.itson.dominio.Cliente;
+
 /**
  *
  * @author icedo
  */
 public interface IControlCliente {
     
+    Cliente registrarCliente(Cliente cliente);
+    Cliente eliminarCliente(Cliente cliente);
+    Cliente actualizarCliente(Cliente cliente);
+    List<Cliente> consultarClientes();
 }

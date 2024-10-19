@@ -13,4 +13,9 @@ public interface IFachadaNegocio {
     IControlPedido getControlPedido();
     IControlCategoria getControlCategoria();
     IControlProducto getControlProducto();
+    IControlCliente getControlCliente();
+    IControlExtra getControlExtra();
+    IControlProductoExtra getControlProductoExtra();
+    IControlProductoPedido getControlProductoPedido();
+    IControlUsuario getControlUsuario();
 }

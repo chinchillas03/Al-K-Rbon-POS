@@ -14,6 +14,6 @@ import org.itson.dominio.Pedido;
 public interface IControlPedido {
     Pedido registrarPedido(Pedido pedido);
     Pedido actualizarPedido(Pedido pedido);
-    void eliminarPedido(Long id);
+    Pedido eliminarPedido(Pedido pedido);
     List<Pedido> consultarPedidos();
 }

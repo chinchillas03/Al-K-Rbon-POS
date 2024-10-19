@@ -4,10 +4,18 @@
  */
 package org.itson.interfaces;
 
+import java.util.List;
+import org.itson.dominio.ProductoPedido;
+
 /**
  *
  * @author icedo
  */
 public interface IControlProductoPedido {
+    
+    ProductoPedido registrarProductoPedido(ProductoPedido pedido);
+    ProductoPedido eliminarProductoPedido(ProductoPedido pedido);
+    ProductoPedido actualizarProductoPedido(ProductoPedido pedido);
+    List<ProductoPedido> consultarProductosPedidos();
     
 }

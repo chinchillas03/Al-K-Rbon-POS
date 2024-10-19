@@ -4,10 +4,43 @@
  */
 package org.itson.implementaciones;
 
+import java.util.List;
+import org.itson.dominio.ProductoExtra;
+import org.itson.interfaces.IControlProductoExtra;
+import org.itson.interfaces.IFachada;
+
 /**
  *
  * @author icedo
  */
-public class ControlProductoExtra {
+public class ControlProductoExtra implements IControlProductoExtra {
+    
+    private final IFachada fachada;
+
+    public ControlProductoExtra(IFachada fachada) {
+        this.fachada = fachada;
+    }
+
+    @Override
+    public ProductoExtra registrarProductoExtra(ProductoExtra producto) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public ProductoExtra eliminarProductoExtra(ProductoExtra producto) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public ProductoExtra actualizarProductoExtra(ProductoExtra producto) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<ProductoExtra> consultarProductoExtras() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    
     
 }

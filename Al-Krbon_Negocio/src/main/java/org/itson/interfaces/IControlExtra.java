@@ -4,10 +4,18 @@
  */
 package org.itson.interfaces;
 
+import java.util.List;
+import org.itson.dominio.Extra;
+
 /**
  *
  * @author icedo
  */
 public interface IControlExtra {
+    
+    Extra registrarExtra(Extra extra);
+    Extra eliminarExtra(Extra extra);
+    Extra actualizarExtra(Extra extra);
+    List<Extra> consultarExtras();
     
 }
