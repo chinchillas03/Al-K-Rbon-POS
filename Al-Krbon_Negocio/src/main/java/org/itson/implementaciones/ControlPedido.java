@@ -23,18 +23,17 @@ public class ControlPedido implements IControlPedido {
 
     @Override
     public Pedido registrarPedido(Pedido pedido) {
-        // Implementar lógica de negocio, validaciones, etc.
         return fachada.registrarPedido(pedido);
     }
 
     @Override
     public Pedido actualizarPedido(Pedido pedido) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.actualizarPedido(pedido);
     }
 
     @Override
     public Pedido eliminarPedido(Pedido pedido) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.eliminarPedido(pedido);
     }
 
     @Override

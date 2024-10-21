@@ -25,22 +25,22 @@ public class ControlCliente implements IControlCliente{
     
     @Override
     public Cliente registrarCliente(Cliente cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.registrarCliente(cliente);
     }
 
     @Override
     public Cliente eliminarCliente(Cliente cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.eliminarCliente(cliente);
     }
 
     @Override
     public Cliente actualizarCliente(Cliente cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.actualizarCliente(cliente);
     }
 
     @Override
     public List<Cliente> consultarClientes() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.consultarClientes();
     }
     
 }

@@ -25,22 +25,22 @@ public class ControlProducto implements IControlProducto{
     
     @Override
     public Producto registrarProducto(Producto producto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.registrarProducto(producto);
     }
 
     @Override
     public Producto eliminarProducto(Producto producto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.eliminarProducto(producto);
     }
 
     @Override
     public Producto actualizarProducto(Producto producto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.actualizarProducto(producto);
     }
 
     @Override
     public List<Producto> consultarProductos() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.consultarProductos();
     }
     
 }

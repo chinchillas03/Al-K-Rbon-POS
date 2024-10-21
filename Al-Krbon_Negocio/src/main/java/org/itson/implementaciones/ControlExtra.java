@@ -23,22 +23,22 @@ public class ControlExtra implements IControlExtra {
 
     @Override
     public Extra registrarExtra(Extra extra) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.registrarExtra(extra);
     }
 
     @Override
     public Extra eliminarExtra(Extra extra) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.eliminarExtra(extra);
     }
 
     @Override
     public Extra actualizarExtra(Extra extra) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.actualizarExtra(extra);
     }
 
     @Override
     public List<Extra> consultarExtras() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.consultarExtras();
     }
     
     

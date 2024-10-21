@@ -24,22 +24,22 @@ public class ControlCategoria implements IControlCategoria {
     
     @Override
     public Categoria registrarCategoria(Categoria producto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.registrarCategoria(producto);
     }
 
     @Override
     public Categoria eliminarCategoria(Categoria producto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.eliminarCategoria(producto);
     }
 
     @Override
     public Categoria actualizarCategoria(Categoria producto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.actualizarCategoria(producto);
     }
 
     @Override
     public List<Categoria> consultarCategorias() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.consultarCategorias();
     }
     
 }

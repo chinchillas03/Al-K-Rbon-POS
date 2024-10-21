@@ -24,22 +24,22 @@ public class ControlUsuario implements IControlUsuario{
 
     @Override
     public Usuario registrarCajero(Cajero cajero) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.registrarCajero(cajero);
     }
 
     @Override
     public Usuario registrarAdministrador(Administrador cajero) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.registrarAdministrador(cajero);
     }
 
     @Override
     public Usuario consultarUsuarioParaLogin(String id, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.consultarUsuarioParaLogin(id, password);
     }
 
     @Override
     public Usuario consultarUsuarioPorId(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.consultarUsuarioPorId(id);
     }
     
     
