@@ -54,6 +54,8 @@ public interface IFachada {
     
     public List<Producto> consultarProductos();
     
+    public Producto consultarProductoPorNombre(String nombre);
+    
     public ProductoExtra registrarProductoExtra(ProductoExtra producto);
     
     public ProductoExtra eliminarProductoExtra(ProductoExtra producto);

@@ -20,7 +20,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import org.itson.dominio.Cajero;
+import org.itson.dominio.Cliente;
+import org.itson.dominio.Pedido;
 import org.itson.dominio.Producto;
+import org.itson.dominio.ProductoPedido;
+import org.itson.implementaciones.FachadaDAO;
 import org.itson.implementaciones.FachadaNegocio;
 
 /**
@@ -31,10 +36,10 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
 
     private JList<String> listaProductos;
     private DefaultListModel<String> modeloProductos;
-    private DefaultTableModel modeloPedido;  // Cambiado a una tabla con modelo de dos columnas
+    private DefaultTableModel modeloPedido;
     private FachadaNegocio fachada;
-    private JLabel lblTotalPedido;  // Nuevo label para mostrar el total del pedido
-    private double totalPedido;  // Variable para llevar el total del pedido
+    private JLabel lblTotalPedido;
+    private double totalPedido;
 
     /**
      * Creates new form CrearPedidoFrm
@@ -50,22 +55,18 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
         fachada = new FachadaNegocio();
         totalPedido = 0.0;
 
-        // Sección izquierda (productos)
         JPanel panelProductos = new JPanel();
         panelProductos.setLayout(new BorderLayout());
 
-        // Añadir título "Productos" sobre la lista de productos
         JLabel lblTituloProductos = new JLabel("Productos");
         lblTituloProductos.setHorizontalAlignment(SwingConstants.CENTER);
         lblTituloProductos.setFont(new Font("Arial", Font.BOLD, 14));
         panelProductos.add(lblTituloProductos, BorderLayout.NORTH);
 
-        // Crear modelo para la lista de productos
         modeloProductos = new DefaultListModel<>();
         listaProductos = new JList<>(modeloProductos);
         JScrollPane scrollProductos = new JScrollPane(listaProductos);
 
-        // Añadir botón para añadir producto
         JButton btnAnadirProducto = new JButton("Añadir");
         JPanel panelBotonProducto = new JPanel(new BorderLayout());
         panelBotonProducto.add(btnAnadirProducto, BorderLayout.SOUTH);
@@ -73,28 +74,22 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
         panelProductos.add(scrollProductos, BorderLayout.CENTER);
         panelProductos.add(panelBotonProducto, BorderLayout.SOUTH);
 
-        // Añadir panel de productos a la izquierda (WEST)
         add(panelProductos, BorderLayout.WEST);
 
-        // Llamar método para cargar productos desde la base de datos
         cargarProductos();
 
-        // Sección derecha (pedido)
         JPanel panelPedido = new JPanel();
         panelPedido.setLayout(new BorderLayout());
 
-        // Añadir título "Agregado al pedido" sobre la tabla de pedido
         JLabel lblTituloPedido = new JLabel("Agregado al pedido");
         lblTituloPedido.setHorizontalAlignment(SwingConstants.CENTER);
         lblTituloPedido.setFont(new Font("Arial", Font.BOLD, 14));
         panelPedido.add(lblTituloPedido, BorderLayout.NORTH);
 
-        // Crear modelo para la tabla de pedidos con dos columnas: Nombre y Cantidad
         modeloPedido = new DefaultTableModel(new Object[]{"Producto", "Cantidad"}, 0);
         JTable tablaPedido = new JTable(modeloPedido);
         JScrollPane scrollPedido = new JScrollPane(tablaPedido);
 
-        // Añadir botones para modificar productos en el pedido
         JButton btnIncrementar = new JButton("+");
         JButton btnDecrementar = new JButton("-");
         JButton btnBorrar = new JButton("Borrar");
@@ -106,24 +101,18 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
         panelPedido.add(scrollPedido, BorderLayout.CENTER);
         panelPedido.add(panelModificacion, BorderLayout.SOUTH);
 
-        // Añadir panel del pedido al centro (CENTER)
         add(panelPedido, BorderLayout.CENTER);
 
-        // Crear panel derecho para el total del pedido
         JPanel panelTotal = new JPanel(new BorderLayout());
 
-        // Label para mostrar el total del pedido
         lblTotalPedido = new JLabel("Total: $0.00");
-        lblTotalPedido.setFont(new Font("Arial", Font.BOLD, 18));  // Cambiar tamaño del texto
-        lblTotalPedido.setHorizontalAlignment(SwingConstants.RIGHT);  // Alinear a la derecha
+        lblTotalPedido.setFont(new Font("Arial", Font.BOLD, 18));
+        lblTotalPedido.setHorizontalAlignment(SwingConstants.RIGHT);
 
-        // Añadir el label del total al panel derecho
         panelTotal.add(lblTotalPedido, BorderLayout.NORTH);
 
-        // Añadir el panelTotal al este (EAST)
         add(panelTotal, BorderLayout.EAST);
 
-        // Sección inferior (botones de guardar)
         JPanel panelBotones = new JPanel();
         JButton btnGuardarTarde = new JButton("Guardar para más tarde");
         JButton btnGuardar = new JButton("Guardar");
@@ -131,48 +120,40 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
         panelBotones.add(btnGuardarTarde);
         panelBotones.add(btnGuardar);
 
-        // Añadir panel de botones al sur (SOUTH)
         add(panelBotones, BorderLayout.SOUTH);
 
-        // Añadir funcionalidad al botón "Añadir"
         btnAnadirProducto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String productoSeleccionado = listaProductos.getSelectedValue();
                 if (productoSeleccionado != null) {
-                    // Extraer el precio del producto del formato "Nombre - Precio"
                     String[] partes = productoSeleccionado.split(" - ");
                     String nombreProducto = partes[0];
                     double precioProducto = Double.parseDouble(partes[1].replace("$", ""));
 
-                    // Verificar si el producto ya está en el pedido
                     boolean productoExistente = false;
                     for (int i = 0; i < modeloPedido.getRowCount(); i++) {
                         String nombreExistente = (String) modeloPedido.getValueAt(i, 0);
                         if (nombreExistente.equals(nombreProducto)) {
                             int cantidadExistente = (int) modeloPedido.getValueAt(i, 1);
-                            modeloPedido.setValueAt(cantidadExistente + 1, i, 1);  // Incrementar cantidad
+                            modeloPedido.setValueAt(cantidadExistente + 1, i, 1);
                             productoExistente = true;
                             break;
                         }
                     }
 
                     if (!productoExistente) {
-                        // Añadir el producto seleccionado al pedido con cantidad inicial de 1
                         modeloPedido.addRow(new Object[]{nombreProducto, 1});
                     }
 
-                    // Actualizar el total del pedido
                     totalPedido += precioProducto;
                     actualizarTotalPedido();
                 } else {
-                    // Mostrar un mensaje si no se seleccionó ningún producto
                     JOptionPane.showMessageDialog(null, "Por favor, selecciona un producto de la lista.");
                 }
             }
         });
 
-        // Funcionalidad para el botón de borrar
         btnBorrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -181,7 +162,6 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
                     String nombreProducto = (String) modeloPedido.getValueAt(filaSeleccionada, 0);
                     int cantidad = (int) modeloPedido.getValueAt(filaSeleccionada, 1);
 
-                    // Buscar el precio del producto original
                     for (int i = 0; i < modeloProductos.size(); i++) {
                         String producto = modeloProductos.get(i);
                         if (producto.contains(nombreProducto)) {
@@ -191,10 +171,8 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
                         }
                     }
 
-                    // Eliminar el producto del pedido
                     modeloPedido.removeRow(filaSeleccionada);
 
-                    // Actualizar el total del pedido
                     actualizarTotalPedido();
                 }
             }
@@ -208,20 +186,18 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
                     String nombreProducto = (String) modeloPedido.getValueAt(filaSeleccionada, 0);
                     int cantidadActual = (int) modeloPedido.getValueAt(filaSeleccionada, 1);
 
-                    // Incrementar la cantidad
                     modeloPedido.setValueAt(cantidadActual + 1, filaSeleccionada, 1);
 
-                    // Buscar el precio del producto original
                     for (int i = 0; i < modeloProductos.size(); i++) {
                         String producto = modeloProductos.get(i);
                         if (producto.contains(nombreProducto)) {
                             double precioProducto = Double.parseDouble(producto.split(" - ")[1].replace("$", ""));
-                            totalPedido += precioProducto;  // Incrementar el total
+                            totalPedido += precioProducto;
                             break;
                         }
                     }
 
-                    actualizarTotalPedido();  // Actualizar el total
+                    actualizarTotalPedido();
                 } else {
                     JOptionPane.showMessageDialog(null, "Por favor, selecciona un producto del pedido.");
                 }
@@ -237,23 +213,19 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
                     int cantidadActual = (int) modeloPedido.getValueAt(filaSeleccionada, 1);
 
                     if (cantidadActual > 1) {
-                        // Decrementar la cantidad
                         modeloPedido.setValueAt(cantidadActual - 1, filaSeleccionada, 1);
 
-                        // Buscar el precio del producto original
                         for (int i = 0; i < modeloProductos.size(); i++) {
                             String producto = modeloProductos.get(i);
                             if (producto.contains(nombreProducto)) {
                                 double precioProducto = Double.parseDouble(producto.split(" - ")[1].replace("$", ""));
-                                totalPedido -= precioProducto;  // Decrementar el total
+                                totalPedido -= precioProducto;
                                 break;
                             }
                         }
                     } else {
-                        // Si la cantidad es 1 y se presiona "-", eliminar el producto del pedido
                         modeloPedido.removeRow(filaSeleccionada);
 
-                        // Buscar el precio del producto original
                         for (int i = 0; i < modeloProductos.size(); i++) {
                             String producto = modeloProductos.get(i);
                             if (producto.contains(nombreProducto)) {
@@ -264,9 +236,70 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
                         }
                     }
 
-                    actualizarTotalPedido();  // Actualizar el total
+                    actualizarTotalPedido();
                 } else {
                     JOptionPane.showMessageDialog(null, "Por favor, selecciona un producto del pedido.");
+                }
+            }
+        });
+
+        btnGuardar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FachadaDAO persis = new FachadaDAO();
+
+                Cliente cliente = new Cliente();
+                cliente.setNombre("Jorge");
+                cliente.setApellidoPaterno("Campos");
+                cliente.setApellidoMaterno("Blanco");
+                cliente.setDireccion("Calle Falsa 123");
+                cliente.setNumero("6441234567");
+
+                Cajero cajero = new Cajero();
+                cajero.setNombre("Pedro Cajero");
+                cajero.setContrasena("securepassword");
+
+                Pedido pedido = new Pedido();
+                pedido.setCliente(cliente);
+                pedido.setCajero(cajero);
+                pedido.setFechaHoraPedido(new java.util.Date());
+                pedido.setFormaEntrega("Entrega a domicilio");
+                pedido.setEstado("Pendiente");
+                pedido.setOpinion("Por favor, no demoren.");
+                pedido.setCalificacion(9.99);
+                pedido.setTotal(totalPedido);
+
+                for (int i = 0; i < modeloPedido.getRowCount(); i++) {
+                    String nombreProducto = (String) modeloPedido.getValueAt(i, 0);
+                    int cantidad = (int) modeloPedido.getValueAt(i, 1);
+
+                    Producto producto = null;
+                    for (int j = 0; j < modeloProductos.size(); j++) {
+                        String productoInfo = modeloProductos.get(j);
+                        if (productoInfo.contains(nombreProducto)) {
+                            producto = fachada.getControlProducto().consultarProductoPorNombre(nombreProducto);
+                            break;
+                        }
+                    }
+
+                    if (producto != null) {
+                        ProductoPedido productoPedido = new ProductoPedido();
+                        productoPedido.setProducto(producto);
+                        productoPedido.setCantidad(cantidad);
+                        productoPedido.setPrecio(producto.getPrecio());
+
+                        pedido.agregarProductoPedido(productoPedido);
+                    }
+                }
+
+                try {
+                    persis.registrarCliente(cliente);
+                    persis.registrarCajero(cajero);
+                    persis.registrarPedido(pedido);
+
+                    JOptionPane.showMessageDialog(null, "Pedido guardado con éxito.");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Error al guardar el pedido: " + ex.getMessage());
                 }
             }
         });
@@ -274,19 +307,16 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
     }
 
     private void cargarProductos() {
-        // Obtener los productos desde la base de datos usando la fachada
+
         List<Producto> productos = fachada.getControlProducto().consultarProductos();
 
-        // Limpiar la lista de productos existente
         modeloProductos.clear();
 
-        // Añadir los productos obtenidos al modelo de la lista (nombre y precio)
         for (Producto producto : productos) {
             modeloProductos.addElement(producto.getNombre() + " - $" + producto.getPrecio());
         }
     }
 
-    // Método para actualizar el label del total del pedido
     private void actualizarTotalPedido() {
         lblTotalPedido.setText(String.format("Total:\n$%.2f", totalPedido));
     }

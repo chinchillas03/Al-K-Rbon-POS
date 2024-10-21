@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import org.itson.conexion.ConexionBD;
 import org.itson.dominio.Producto;
 import org.itson.interfaces.IProducto;
@@ -16,13 +17,13 @@ import org.itson.interfaces.IProducto;
  *
  * @author Usuario
  */
-public class ProductoDAO implements IProducto{
+public class ProductoDAO implements IProducto {
+
     private final EntityManagerFactory manager;
-    
 
     public ProductoDAO() {
         manager = ConexionBD.getConection();
-        
+
     }
 
     @Override
@@ -104,5 +105,28 @@ public class ProductoDAO implements IProducto{
         }
         return productos;
     }
-    
+
+    @Override
+    public Producto consultarProductoPorNombre(String nombre) {
+        EntityManager em = null;
+        Producto producto = null;
+        try {
+            em = manager.createEntityManager();
+
+            // Consulta JPQL para obtener el producto por nombre
+            producto = em.createQuery("SELECT p FROM Producto p WHERE p.nombre = :nombre", Producto.class)
+                    .setParameter("nombre", nombre)
+                    .getSingleResult();  // Asumiendo que el nombre es único
+        } catch (NoResultException e) {
+            System.out.println("No se encontró un producto con ese nombre.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return producto;
+    }
+
 }

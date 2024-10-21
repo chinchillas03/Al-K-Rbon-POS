@@ -21,4 +21,6 @@ public interface IProducto {
     
     public List<Producto> consultarProductos();
     
+    public Producto consultarProductoPorNombre(String nombre);
+    
 }

@@ -34,8 +34,8 @@ public class AlKrbon_Persistencia {
             Producto hamburguesa = new Producto();
             listaProductos.add(hamburguesa);
             hamburguesa.setNombre("Coca");
-            hamburguesa.setDescripcion("Coca cola 500");
-            hamburguesa.setPrecio(20.0);
+            hamburguesa.setDescripcion("Coca Cola 500");
+            hamburguesa.setPrecio(60.0);
             hamburguesa.setCategoria(categoria);
             persis.registrarProducto(hamburguesa);
 

@@ -130,6 +130,11 @@ public class FachadaDAO implements IFachada{
     public List<Producto> consultarProductos() {
         return productoDAO.consultarProductos();
     }
+    
+    @Override
+    public Producto consultarProductoPorNombre(String nombre){
+        return productoDAO.consultarProductoPorNombre(nombre);
+    }
 
     @Override
     public ProductoExtra registrarProductoExtra(ProductoExtra producto) {

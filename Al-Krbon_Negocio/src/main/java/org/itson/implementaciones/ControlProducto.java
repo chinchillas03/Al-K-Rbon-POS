@@ -21,8 +21,6 @@ public class ControlProducto implements IControlProducto{
         this.fachada = fachada;
     }
     
-    
-    
     @Override
     public Producto registrarProducto(Producto producto) {
         return fachada.registrarProducto(producto);
@@ -41,6 +39,11 @@ public class ControlProducto implements IControlProducto{
     @Override
     public List<Producto> consultarProductos() {
         return fachada.consultarProductos();
+    }
+    
+    @Override
+    public Producto consultarProductoPorNombre(String nombre){
+        return fachada.consultarProductoPorNombre(nombre);
     }
     
 }
