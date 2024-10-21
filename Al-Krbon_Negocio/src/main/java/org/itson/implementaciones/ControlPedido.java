@@ -39,6 +39,6 @@ public class ControlPedido implements IControlPedido {
 
     @Override
     public List<Pedido> consultarPedidos() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return fachada.consultarPedidos();
     }
 }
