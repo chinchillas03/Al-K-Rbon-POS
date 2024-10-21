@@ -6,6 +6,7 @@ package org.itson.presentacion;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -48,7 +49,7 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
         initComponents();
         setTitle("Sistema de Órdenes");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 400);
+        setSize(800, 600);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
 
@@ -58,10 +59,37 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
         JPanel panelProductos = new JPanel();
         panelProductos.setLayout(new BorderLayout());
 
+        // Crear un panel para el título y las categorías
+        JPanel panelSuperior = new JPanel();
+        panelSuperior.setLayout(new BorderLayout());
+
+        // Título de productos
         JLabel lblTituloProductos = new JLabel("Productos");
         lblTituloProductos.setHorizontalAlignment(SwingConstants.CENTER);
         lblTituloProductos.setFont(new Font("Arial", Font.BOLD, 14));
-        panelProductos.add(lblTituloProductos, BorderLayout.NORTH);
+
+        // Añadir el título al panel superior
+        panelSuperior.add(lblTituloProductos, BorderLayout.NORTH);
+
+        // Crear el panel de categorías y sus botones
+        JPanel panelCategorias = new JPanel();
+        panelCategorias.setLayout(new GridLayout(2, 2));
+
+        JButton btnHamburguesas = new JButton("Hamburguesas");
+        JButton btnBebidas = new JButton("Bebidas");
+        JButton btnEntradas = new JButton("Entradas");
+        JButton btnPaquetes = new JButton("Paquetes");
+
+        panelCategorias.add(btnHamburguesas);
+        panelCategorias.add(btnBebidas);
+        panelCategorias.add(btnEntradas);
+        panelCategorias.add(btnPaquetes);
+
+        // Añadir el panel de categorías debajo del título en el panel superior
+        panelSuperior.add(panelCategorias, BorderLayout.SOUTH);
+
+        // Ahora añadir el panel superior (con título y categorías) al panelProductos en BorderLayout.NORTH
+        panelProductos.add(panelSuperior, BorderLayout.NORTH);
 
         modeloProductos = new DefaultListModel<>();
         listaProductos = new JList<>(modeloProductos);
@@ -76,8 +104,9 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
 
         add(panelProductos, BorderLayout.WEST);
 
-        cargarProductos();
+        cargarProductos(); // Método para cargar los productos
 
+        // Resto de la interfaz gráfica (panelPedido, panelTotal, etc.)
         JPanel panelPedido = new JPanel();
         panelPedido.setLayout(new BorderLayout());
 
@@ -304,6 +333,34 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
             }
         });
 
+        btnHamburguesas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cargarProductosPorCategoria("Hamburguesa");
+            }
+        });
+
+        btnBebidas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cargarProductosPorCategoria("Bebida");
+            }
+        });
+
+        btnEntradas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cargarProductosPorCategoria("Entrada");
+            }
+        });
+
+        btnPaquetes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cargarProductosPorCategoria("Paquete");
+            }
+        });
+
     }
 
     private void cargarProductos() {
@@ -319,6 +376,20 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
 
     private void actualizarTotalPedido() {
         lblTotalPedido.setText(String.format("Total:\n$%.2f", totalPedido));
+    }
+
+    private void cargarProductosPorCategoria(String categoria) {
+        modeloProductos.clear();  // Limpiar la lista de productos
+
+        // Obtener todos los productos desde la base de datos
+        List<Producto> productos = fachada.getControlProducto().consultarProductos();
+
+        // Filtrar productos por la categoría seleccionada
+        for (Producto producto : productos) {
+            if (producto.getCategoria().getDescripcion().equalsIgnoreCase(categoria)) {
+                modeloProductos.addElement(producto.getNombre() + " - $" + producto.getPrecio());
+            }
+        }
     }
 
     /**
