@@ -10,6 +10,17 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>Al-Krbon_Persistencia</artifactId>
             <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.mycompany</groupId>
+                    <artifactId>Al-Krbon_Dominio</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.mycompany</groupId>
+            <artifactId>Al-Krbon_Dominio</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <properties>
