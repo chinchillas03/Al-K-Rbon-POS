@@ -29,25 +29,25 @@ public class AlKrbon_Persistencia {
         try {
             List<Producto> listaProductos = new ArrayList<>();
             Categoria categoria = new Categoria();
-            categoria.setDescripcion("Hamburguesas");
+            categoria.setDescripcion("Bebida");
 
             Producto hamburguesa = new Producto();
             listaProductos.add(hamburguesa);
-            hamburguesa.setNombre("Sencilla");
-            hamburguesa.setDescripcion("Hamburguesa sencilla");
-            hamburguesa.setPrecio(60.0);
+            hamburguesa.setNombre("Coca");
+            hamburguesa.setDescripcion("Coca cola 500");
+            hamburguesa.setPrecio(20.0);
             hamburguesa.setCategoria(categoria);
             persis.registrarProducto(hamburguesa);
 
             Extra salsaBBQ = new Extra();
-            salsaBBQ.setDescripcion("Salsa BBQ");
+            salsaBBQ.setDescripcion("");
             salsaBBQ.setPrecioExtra(10.0);
             persis.registrarExtra(salsaBBQ);
 
             Cliente cliente = new Cliente();
-            cliente.setNombre("Juan");
-            cliente.setApellidoPaterno("Pérez");
-            cliente.setApellidoMaterno("Gómez");
+            cliente.setNombre("Jorge");
+            cliente.setApellidoPaterno("Campos");
+            cliente.setApellidoMaterno("Blanco");
             cliente.setDireccion("Calle Falsa 123");
             cliente.setNumero("6441234567");
             persis.registrarCliente(cliente);

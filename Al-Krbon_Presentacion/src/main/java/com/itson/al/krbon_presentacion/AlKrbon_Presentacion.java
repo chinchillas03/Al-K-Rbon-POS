@@ -20,7 +20,7 @@ public class AlKrbon_Presentacion {
         List<Producto> productos = fachada.getControlProducto().consultarProductos();
         
         for (int i = 0; i < productos.size(); i++) {
-            System.out.println("Producto -> "+i);
+            System.out.println("Producto -> "+(i+1));
             System.out.println(productos.get(i).getId());
             System.out.println(productos.get(i).getNombre());
             System.out.println(productos.get(i).getDescripcion());
