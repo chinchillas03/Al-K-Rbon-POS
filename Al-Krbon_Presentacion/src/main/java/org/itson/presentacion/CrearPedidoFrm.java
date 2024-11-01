@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -21,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import org.itson.dominio.Cajero;
@@ -97,6 +99,8 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
 
         modeloPedido = new DefaultTableModel(new Object[]{"Producto", "Cantidad"}, 0);
         JTable tablaPedido = new JTable(modeloPedido);
+        tablaPedido.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        tablaPedido.setRowSelectionAllowed(true);
         JScrollPane scrollPedido = new JScrollPane(tablaPedido);
         panelPedido.add(scrollPedido, BorderLayout.CENTER);
 
@@ -174,54 +178,27 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
             }
         });
 
-        btnBorrar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int filaSeleccionada = tablaPedido.getSelectedRow();
-                if (filaSeleccionada != -1) {
-                    String nombreProducto = (String) modeloPedido.getValueAt(filaSeleccionada, 0);
-                    int cantidad = (int) modeloPedido.getValueAt(filaSeleccionada, 1);
-
-                    for (int i = 0; i < modeloProductos.size(); i++) {
-                        String producto = modeloProductos.get(i);
-                        if (producto.contains(nombreProducto)) {
-                            double precioProducto = Double.parseDouble(producto.split(" - ")[1].replace("$", ""));
-                            totalPedido -= precioProducto * cantidad;
-                            break;
-                        }
-                    }
-
-                    modeloPedido.removeRow(filaSeleccionada);
-
-                    actualizarTotalPedido();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Por favor, selecciona un producto del pedido.");
-                }
-            }
-        });
-
         btnIncrementar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int filaSeleccionada = tablaPedido.getSelectedRow();
-                if (filaSeleccionada != -1) {
-                    String nombreProducto = (String) modeloPedido.getValueAt(filaSeleccionada, 0);
-                    int cantidadActual = (int) modeloPedido.getValueAt(filaSeleccionada, 1);
+                int[] filasSeleccionadas = tablaPedido.getSelectedRows();
+                if (filasSeleccionadas.length > 0) {
+                    for (int fila : filasSeleccionadas) {
+                        String nombreProducto = (String) modeloPedido.getValueAt(fila, 0);
+                        int cantidadActual = (int) modeloPedido.getValueAt(fila, 1);
 
-                    modeloPedido.setValueAt(cantidadActual + 1, filaSeleccionada, 1);
+                        // Incrementa la cantidad en la tabla
+                        modeloPedido.setValueAt(cantidadActual + 1, fila, 1);
 
-                    for (int i = 0; i < modeloProductos.size(); i++) {
-                        String producto = modeloProductos.get(i);
-                        if (producto.contains(nombreProducto)) {
-                            double precioProducto = Double.parseDouble(producto.split(" - ")[1].replace("$", ""));
-                            totalPedido += precioProducto;
-                            break;
+                        // Obtener el precio del producto desde FachadaNegocio
+                        Producto producto = fachada.getControlProducto().consultarProductoPorNombre(nombreProducto);
+                        if (producto != null) {
+                            totalPedido += producto.getPrecio();
                         }
                     }
-
                     actualizarTotalPedido();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Por favor, selecciona un producto del pedido.");
+                    JOptionPane.showMessageDialog(null, "Por favor, selecciona uno o más productos del pedido.");
                 }
             }
         });
@@ -229,38 +206,54 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
         btnDecrementar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int filaSeleccionada = tablaPedido.getSelectedRow();
-                if (filaSeleccionada != -1) {
-                    String nombreProducto = (String) modeloPedido.getValueAt(filaSeleccionada, 0);
-                    int cantidadActual = (int) modeloPedido.getValueAt(filaSeleccionada, 1);
+                int[] filasSeleccionadas = tablaPedido.getSelectedRows();
+                if (filasSeleccionadas.length > 0) {
+                    for (int fila : filasSeleccionadas) {
+                        String nombreProducto = (String) modeloPedido.getValueAt(fila, 0);
+                        int cantidadActual = (int) modeloPedido.getValueAt(fila, 1);
 
-                    if (cantidadActual > 1) {
-                        modeloPedido.setValueAt(cantidadActual - 1, filaSeleccionada, 1);
+                        if (cantidadActual > 1) {
+                            // Decrementa la cantidad en la tabla
+                            modeloPedido.setValueAt(cantidadActual - 1, fila, 1);
 
-                        for (int i = 0; i < modeloProductos.size(); i++) {
-                            String producto = modeloProductos.get(i);
-                            if (producto.contains(nombreProducto)) {
-                                double precioProducto = Double.parseDouble(producto.split(" - ")[1].replace("$", ""));
-                                totalPedido -= precioProducto;
-                                break;
+                            // Obtener el precio del producto desde FachadaNegocio
+                            Producto producto = fachada.getControlProducto().consultarProductoPorNombre(nombreProducto);
+                            if (producto != null) {
+                                totalPedido -= producto.getPrecio();
                             }
-                        }
-                    } else {
-                        modeloPedido.removeRow(filaSeleccionada);
-
-                        for (int i = 0; i < modeloProductos.size(); i++) {
-                            String producto = modeloProductos.get(i);
-                            if (producto.contains(nombreProducto)) {
-                                double precioProducto = Double.parseDouble(producto.split(" - ")[1].replace("$", ""));
-                                totalPedido -= precioProducto;
-                                break;
-                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se puede reducir más la cantidad de " + nombreProducto);
                         }
                     }
-
                     actualizarTotalPedido();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Por favor, selecciona un producto del pedido.");
+                    JOptionPane.showMessageDialog(null, "Por favor, selecciona uno o más productos del pedido.");
+                }
+            }
+        });
+
+        btnBorrar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int[] filasSeleccionadas = tablaPedido.getSelectedRows();
+                if (filasSeleccionadas.length > 0) {
+                    for (int i = filasSeleccionadas.length - 1; i >= 0; i--) {
+                        int fila = filasSeleccionadas[i];
+                        String nombreProducto = (String) modeloPedido.getValueAt(fila, 0);
+                        int cantidad = (int) modeloPedido.getValueAt(fila, 1);
+
+                        // Obtener el precio del producto desde FachadaNegocio
+                        Producto producto = fachada.getControlProducto().consultarProductoPorNombre(nombreProducto);
+                        if (producto != null) {
+                            totalPedido -= producto.getPrecio() * cantidad;
+                        }
+
+                        // Eliminar la fila del modelo de la tabla
+                        modeloPedido.removeRow(fila);
+                    }
+                    actualizarTotalPedido();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Por favor, selecciona uno o más productos del pedido.");
                 }
             }
         });
@@ -361,17 +354,6 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
             }
         });
 
-    }
-
-    private void cargarProductos() {
-
-        List<Producto> productos = fachada.getControlProducto().consultarProductos();
-
-        modeloProductos.clear();
-
-        for (Producto producto : productos) {
-            modeloProductos.addElement(producto.getNombre() + " - $" + producto.getPrecio());
-        }
     }
 
     private void actualizarTotalPedido() {
