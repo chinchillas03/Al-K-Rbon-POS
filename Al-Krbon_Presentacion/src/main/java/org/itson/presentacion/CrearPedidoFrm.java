@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -34,7 +35,7 @@ import org.itson.implementaciones.FachadaDAO;
 import org.itson.implementaciones.FachadaNegocio;
 
 /**
- *
+ * 
  * @author Manuel Flores
  */
 public class CrearPedidoFrm extends javax.swing.JFrame {
@@ -47,10 +48,14 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
     private double totalPedido;
     private JTextArea txtComentarios;
     private JLabel lblTotalConDescuento;
-
-    /**
-     * Creates new form CrearPedidoFrm
-     */
+    private double totalConDescuento;
+    private JTextField txtDescuento;
+    private JComboBox<String> comboTipoDescuento;
+    private JButton btnAplicarDescuento;
+    
+/**
+ * Creates new form CrearPedidoFrm
+ */
     public CrearPedidoFrm() {
         initComponents();
         setTitle("Sistema de Órdenes");
@@ -64,7 +69,6 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
 
         // PANEL IZQUIERDO
         JPanel panelProductos = new JPanel(new BorderLayout());
-
         JPanel panelSuperior = new JPanel(new BorderLayout());
         JLabel lblTituloProductos = new JLabel("Productos", SwingConstants.CENTER);
         lblTituloProductos.setFont(new Font("Arial", Font.BOLD, 14));
@@ -108,7 +112,6 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
         JTable tablaPedido = new JTable(modeloPedido);
         tablaPedido.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         tablaPedido.setRowSelectionAllowed(true);
-        tablaPedido.getColumnModel().getColumn(2).setCellRenderer(new FormatoComentarios());
         JScrollPane scrollPedido = new JScrollPane(tablaPedido);
         panelPedido.add(scrollPedido, BorderLayout.CENTER);
 
@@ -127,24 +130,27 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
         JPanel panelTotal = new JPanel(new BorderLayout());
         lblTotalPedido = new JLabel("Total: $0.00", SwingConstants.RIGHT);
         lblTotalPedido.setFont(new Font("Arial", Font.BOLD, 18));
-//        JLabel lblDescuento = new JLabel("Descuento (%):");
-//        JTextField txtDescuento = new JTextField(5);
-//        lblTotalConDescuento = new JLabel("Total con descuento: $0.00", SwingConstants.RIGHT);
-//        lblTotalConDescuento.setFont(new Font("Arial", Font.BOLD, 18));
-//        JButton btnAplicarDescuento = new JButton("Aplicar descuento");
-//        JButton btnGuardarConDescuento = new JButton("Guardar con descuento");
-//
-//        panelTotal.add(lblDescuento, BorderLayout.WEST);
-//        panelTotal.add(txtDescuento, BorderLayout.CENTER);
-//        panelTotal.add(lblTotalConDescuento, BorderLayout.WEST);
-//        panelTotal.add(btnAplicarDescuento, BorderLayout.EAST);
-//        panelTotal.add(btnGuardarConDescuento, BorderLayout.SOUTH);
+        lblTotalConDescuento = new JLabel("Total con descuento: $0.00", SwingConstants.RIGHT);
+        lblTotalConDescuento.setFont(new Font("Arial", Font.BOLD, 18));
+        
+        JPanel panelDescuento = new JPanel(new FlowLayout());
+        JLabel lblDescuento = new JLabel("Descuento:");
+        txtDescuento = new JTextField(5);
+        comboTipoDescuento = new JComboBox<>(new String[]{"Porcentaje", "Cantidad"});
+        btnAplicarDescuento = new JButton("Aplicar Descuento");
+        
+        panelDescuento.add(lblDescuento);
+        panelDescuento.add(txtDescuento);
+        panelDescuento.add(comboTipoDescuento);
+        panelDescuento.add(btnAplicarDescuento);
+        
         panelTotal.add(lblTotalPedido, BorderLayout.NORTH);
+        panelTotal.add(lblTotalConDescuento, BorderLayout.CENTER);
+        panelTotal.add(panelDescuento, BorderLayout.SOUTH);
         add(panelTotal, BorderLayout.EAST);
 
         // PANEL INFERIOR
         JPanel panelInferior = new JPanel(new BorderLayout());
-
         JPanel panelBotonesGuardar = new JPanel(new FlowLayout());
         JButton btnGuardarTarde = new JButton("Guardar para más tarde");
         JButton btnGuardar = new JButton("Guardar");
@@ -238,8 +244,7 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
         });
 
         btnBorrar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+            @Override public void actionPerformed(ActionEvent e) {
                 int[] filasSeleccionadas = tablaPedido.getSelectedRows();
                 if (filasSeleccionadas.length > 0) {
                     for (int i = filasSeleccionadas.length - 1; i >= 0; i--) {
@@ -260,29 +265,7 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
                 }
             }
         });
-
-//        btnAplicarDescuento.addActionListener(e -> {
-//            try {
-//                // Obtiene el valor del porcentaje de descuento del JTextField
-//                int descuento = Integer.parseInt(txtDescuento.getText());
-//
-//                // Verifica que el descuento esté entre 1 y 100
-//                if (descuento < 1 || descuento > 100) {
-//                    JOptionPane.showMessageDialog(null, "El descuento debe ser entre 1% y 100%");
-//                    return;
-//                }
-//
-//                // Calcula el precio con descuento
-//                double precioConDescuento = totalPedido - (totalPedido * descuento / 100.0);
-//
-//                // Muestra el precio con descuento en lblTotalConDescuento
-//                lblTotalConDescuento.setText("Total con descuento: $" + String.format("%.2f", precioConDescuento));
-//
-//            } catch (NumberFormatException ex) {
-//                JOptionPane.showMessageDialog(null, "Ingresa un valor numérico para el descuento");
-//            }
-//        });
-
+        
         btnGuardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -317,7 +300,7 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
                 pedido.setEstado("Pendiente");
                 pedido.setOpinion("Por favor, no demoren.");
                 pedido.setCalificacion(9.99);
-                pedido.setTotal(totalPedido);
+                pedido.setTotal(totalConDescuento > 0 ? totalConDescuento : totalPedido);
 
                 for (int i = 0; i < modeloPedido.getRowCount(); i++) {
                     String nombreProducto = (String) modeloPedido.getValueAt(i, 0);
@@ -353,77 +336,35 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
             }
         });
 
-//        btnGuardarConDescuento.addActionListener(e -> {
-//            if (modeloPedido.getRowCount() == 0) {
-//                JOptionPane.showMessageDialog(CrearPedidoFrm.this, "No se puede guardar el pedido. Agrega al menos un producto.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-//                return;
-//            }
-//
-//            double precioConDescuento;
-//            try {
-//                // Extrae el valor del lblTotalConDescuento
-//                String textoDescuento = lblTotalConDescuento.getText().replace("Total con descuento: $", "");
-//                precioConDescuento = Double.parseDouble(textoDescuento);
-//            } catch (NumberFormatException ex) {
-//                JOptionPane.showMessageDialog(null, "Error al obtener el precio con descuento");
-//                return;
-//            }
-//
-//            // Configuración de pedido con descuento
-//            FachadaDAO persis = new FachadaDAO();
-//            Cliente cliente = new Cliente();
-//            cliente.setNombre("Jorge");
-//            cliente.setApellidoPaterno("Campos");
-//            cliente.setApellidoMaterno("Blanco");
-//            cliente.setDireccion("Calle Falsa 123");
-//            cliente.setNumero("6441234567");
-//
-//            Cajero cajero = new Cajero();
-//            cajero.setNombre("Pedro Cajero");
-//            cajero.setContrasena("securepassword");
-//
-//            Pedido pedido = new Pedido();
-//            pedido.setCliente(cliente);
-//            pedido.setCajero(cajero);
-//            pedido.setFechaHoraPedido(new java.util.Date());
-//            pedido.setFormaEntrega("Entrega a domicilio");
-//            pedido.setEstado("Pendiente");
-//            pedido.setOpinion("Por favor, no demoren.");
-//            pedido.setCalificacion(9.99);
-//            pedido.setTotal(precioConDescuento);
-//
-//            for (int i = 0; i < modeloPedido.getRowCount(); i++) {
-//                String nombreProducto = (String) modeloPedido.getValueAt(i, 0);
-//                int cantidad = (int) modeloPedido.getValueAt(i, 1);
-//                String comentarioProducto = (String) modeloPedido.getValueAt(i, 2);
-//
-//                if (comentarioProducto == null || comentarioProducto.trim().isBlank() || comentarioProducto.trim().isEmpty()) {
-//                    comentarioProducto = null;
-//                }
-//
-//                Producto producto = fachada.getControlProducto().consultarProductoPorNombre(nombreProducto);
-//
-//                if (producto != null) {
-//                    ProductoPedido productoPedido = new ProductoPedido();
-//                    productoPedido.setProducto(producto);
-//                    productoPedido.setCantidad(cantidad);
-//                    productoPedido.setPrecio(producto.getPrecio());
-//                    productoPedido.setComentarios(comentarioProducto);
-//
-//                    pedido.agregarProductoPedido(productoPedido);
-//                }
-//            }
-//
-//            try {
-//                persis.registrarCliente(cliente);
-//                persis.registrarCajero(cajero);
-//                persis.registrarPedido(pedido);
-//
-//                JOptionPane.showMessageDialog(null, "Pedido guardado con éxito con descuento aplicado.");
-//            } catch (Exception ex) {
-//                JOptionPane.showMessageDialog(null, "Error al guardar el pedido: " + ex.getMessage());
-//            }
-//        });
+        btnAplicarDescuento.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    double descuento = Double.parseDouble(txtDescuento.getText());
+                    if (descuento < 0) {
+                        JOptionPane.showMessageDialog(null, "El descuento no puede ser negativo.");
+                        return;
+                    }
+
+                    String tipoDescuento = (String) comboTipoDescuento.getSelectedItem();
+                    totalConDescuento = totalPedido;
+
+                    if (tipoDescuento.equals("Porcentaje")) {
+                        totalConDescuento -= totalPedido * (descuento / 100);
+                    } else if ( tipoDescuento.equals("Cantidad")) {
+                        totalConDescuento -= descuento;
+                    }
+
+                    if (totalConDescuento < 0) {
+                        totalConDescuento = 0;
+                    }
+
+                    lblTotalConDescuento.setText("Total con descuento: $" + String.format("%.2f", totalConDescuento));
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Ingresa un valor numérico para el descuento.");
+                }
+            }
+        });
 
         btnHamburguesas.addActionListener(new ActionListener() {
             @Override
@@ -452,12 +393,11 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
                 cargarProductosPorCategoria("Paquete");
             }
         });
-
     }
 
     private void actualizarTotalPedido() {
         lblTotalPedido.setText("Total: $" + String.format("%.2f", totalPedido));
-        //lblTotalConDescuento.setText("Total con descuento: $0.00");
+        lblTotalConDescuento.setText("Total con descuento: $0.00");
     }
 
     private void cargarProductosPorCategoria(String categoria) {
