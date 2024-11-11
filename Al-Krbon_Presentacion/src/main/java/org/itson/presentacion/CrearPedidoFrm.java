@@ -307,7 +307,7 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
                 pedido.setEstado("Pendiente");
                 pedido.setOpinion("Por favor, no demoren.");
                 pedido.setCalificacion(9.99);
-                pedido.setTotal(totalConDescuento > 0 ? totalConDescuento : totalPedido);
+                pedido.setTotal(totalConDescuento >= 0 ? totalConDescuento : totalPedido);
 
                 for (int i = 0; i < modeloPedido.getRowCount(); i++) {
                     String nombreProducto = (String) modeloPedido.getValueAt(i, 0);
