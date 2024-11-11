@@ -33,9 +33,11 @@ import org.itson.dominio.Producto;
 import org.itson.dominio.ProductoPedido;
 import org.itson.implementaciones.FachadaDAO;
 import org.itson.implementaciones.FachadaNegocio;
+import org.itson.validadores.FormatoComentarios;
+import org.itson.validadores.ValidadorCaracteres;
 
 /**
- * 
+ *
  * @author Manuel Flores
  */
 public class CrearPedidoFrm extends javax.swing.JFrame {
@@ -52,15 +54,15 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
     private JTextField txtDescuento;
     private JComboBox<String> comboTipoDescuento;
     private JButton btnAplicarDescuento;
-    
-/**
- * Creates new form CrearPedidoFrm
- */
+
+    /**
+     * Creates new form CrearPedidoFrm
+     */
     public CrearPedidoFrm() {
         initComponents();
         setTitle("Sistema de Órdenes");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        setSize(1000, 650);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
 
@@ -112,6 +114,8 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
         JTable tablaPedido = new JTable(modeloPedido);
         tablaPedido.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         tablaPedido.setRowSelectionAllowed(true);
+        tablaPedido.getColumnModel().getColumn(2).setCellEditor(new ValidadorCaracteres());
+        tablaPedido.getColumnModel().getColumn(2).setCellRenderer(new FormatoComentarios());
         JScrollPane scrollPedido = new JScrollPane(tablaPedido);
         panelPedido.add(scrollPedido, BorderLayout.CENTER);
 
@@ -132,18 +136,18 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
         lblTotalPedido.setFont(new Font("Arial", Font.BOLD, 18));
         lblTotalConDescuento = new JLabel("Total con descuento: $0.00", SwingConstants.RIGHT);
         lblTotalConDescuento.setFont(new Font("Arial", Font.BOLD, 18));
-        
+
         JPanel panelDescuento = new JPanel(new FlowLayout());
         JLabel lblDescuento = new JLabel("Descuento:");
         txtDescuento = new JTextField(5);
         comboTipoDescuento = new JComboBox<>(new String[]{"Porcentaje", "Cantidad"});
         btnAplicarDescuento = new JButton("Aplicar Descuento");
-        
+
         panelDescuento.add(lblDescuento);
         panelDescuento.add(txtDescuento);
         panelDescuento.add(comboTipoDescuento);
         panelDescuento.add(btnAplicarDescuento);
-        
+
         panelTotal.add(lblTotalPedido, BorderLayout.NORTH);
         panelTotal.add(lblTotalConDescuento, BorderLayout.CENTER);
         panelTotal.add(panelDescuento, BorderLayout.SOUTH);
@@ -164,31 +168,33 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
         btnAnadirProducto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String productoSeleccionado = listaProductos.getSelectedValue();
-                if (productoSeleccionado != null) {
-                    String[] partes = productoSeleccionado.split(" - ");
-                    String nombreProducto = partes[0];
-                    double precioProducto = Double.parseDouble(partes[1].replace("$", ""));
+                List<String> productosSeleccionados = listaProductos.getSelectedValuesList(); // Obtener múltiples selecciones
+                if (!productosSeleccionados.isEmpty()) {
+                    for (String productoSeleccionado : productosSeleccionados) {
+                        String[] partes = productoSeleccionado.split(" - ");
+                        String nombreProducto = partes[0];
+                        double precioProducto = Double.parseDouble(partes[1].replace("$", ""));
 
-                    boolean productoExistente = false;
-                    for (int i = 0; i < modeloPedido.getRowCount(); i++) {
-                        String nombreExistente = (String) modeloPedido.getValueAt(i, 0);
-                        if (nombreExistente.equals(nombreProducto)) {
-                            int cantidadExistente = (int) modeloPedido.getValueAt(i, 1);
-                            modeloPedido.setValueAt(cantidadExistente + 1, i, 1);
-                            productoExistente = true;
-                            break;
+                        boolean productoExistente = false;
+                        for (int i = 0; i < modeloPedido.getRowCount(); i++) {
+                            String nombreExistente = (String) modeloPedido.getValueAt(i, 0);
+                            if (nombreExistente.equals(nombreProducto)) {
+                                int cantidadExistente = (int) modeloPedido.getValueAt(i, 1);
+                                modeloPedido.setValueAt(cantidadExistente + 1, i, 1);
+                                productoExistente = true;
+                                break;
+                            }
                         }
-                    }
 
-                    if (!productoExistente) {
-                        modeloPedido.addRow(new Object[]{nombreProducto, 1});
-                    }
+                        if (!productoExistente) {
+                            modeloPedido.addRow(new Object[]{nombreProducto, 1, ""}); // Agregar el producto con columna de comentarios
+                        }
 
-                    totalPedido += precioProducto;
+                        totalPedido += precioProducto;
+                    }
                     actualizarTotalPedido();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Por favor, selecciona un producto de la lista");
+                    JOptionPane.showMessageDialog(null, "Por favor, selecciona uno o más productos de la lista");
                 }
             }
         });
@@ -244,7 +250,8 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
         });
 
         btnBorrar.addActionListener(new ActionListener() {
-            @Override public void actionPerformed(ActionEvent e) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 int[] filasSeleccionadas = tablaPedido.getSelectedRows();
                 if (filasSeleccionadas.length > 0) {
                     for (int i = filasSeleccionadas.length - 1; i >= 0; i--) {
@@ -265,7 +272,7 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
                 }
             }
         });
-        
+
         btnGuardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -317,7 +324,8 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
                         ProductoPedido productoPedido = new ProductoPedido();
                         productoPedido.setProducto(producto);
                         productoPedido.setCantidad(cantidad);
-                        productoPedido.setPrecio(producto.getPrecio());
+                        double precioRedondeado = (Math.round(producto.getPrecio()*100.0)/100.0);
+                        productoPedido.setPrecio(precioRedondeado);
                         productoPedido.setComentarios(comentarioProducto);
 
                         pedido.agregarProductoPedido(productoPedido);
@@ -351,7 +359,7 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
 
                     if (tipoDescuento.equals("Porcentaje")) {
                         totalConDescuento -= totalPedido * (descuento / 100);
-                    } else if ( tipoDescuento.equals("Cantidad")) {
+                    } else if (tipoDescuento.equals("Cantidad")) {
                         totalConDescuento -= descuento;
                     }
 

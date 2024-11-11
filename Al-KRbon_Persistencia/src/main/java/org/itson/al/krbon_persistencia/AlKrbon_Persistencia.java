@@ -29,13 +29,13 @@ public class AlKrbon_Persistencia {
         try {
             List<Producto> listaProductos = new ArrayList<>();
             Categoria categoria = new Categoria();
-            categoria.setDescripcion("Paquete");
+            categoria.setDescripcion("Hamburguesa");
 
             Producto hamburguesa = new Producto();
             listaProductos.add(hamburguesa);
-            hamburguesa.setNombre("2 Sencillas");
-            hamburguesa.setDescripcion("2 hamburguesas sencillas");
-            hamburguesa.setPrecio(40.0);
+            hamburguesa.setNombre("Doble carne");
+            hamburguesa.setDescripcion("Una hamburguesa doble carne");
+            hamburguesa.setPrecio(40.99);
             hamburguesa.setCategoria(categoria);
             persis.registrarProducto(hamburguesa);
 
