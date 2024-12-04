@@ -4,6 +4,8 @@
  */
 package org.itson.interfaces;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import org.itson.dominio.Administrador;
 import org.itson.dominio.Cajero;
@@ -79,6 +81,8 @@ public interface IFachada {
     public Pedido actualizarPedido(Pedido producto);
     
     public List<Pedido> consultarPedidos();
+    
+    public List<Pedido> consultarPedidosPorEstadoYFechas(String estado, Date fechaInicio, Date fechaFinal);
     
     public ProductoPedido registrarProductoPedido(ProductoPedido producto);
     

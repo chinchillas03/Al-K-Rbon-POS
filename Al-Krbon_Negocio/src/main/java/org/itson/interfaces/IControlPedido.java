@@ -4,6 +4,8 @@
  */
 package org.itson.interfaces;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import org.itson.dominio.Pedido;
 
@@ -16,4 +18,5 @@ public interface IControlPedido {
     Pedido actualizarPedido(Pedido pedido);
     Pedido eliminarPedido(Pedido pedido);
     List<Pedido> consultarPedidos();
+    public List<Pedido> consultarPedidosPorEstadoYFechas(String estado, Date fechaInicio, Date fechaFinal);
 }

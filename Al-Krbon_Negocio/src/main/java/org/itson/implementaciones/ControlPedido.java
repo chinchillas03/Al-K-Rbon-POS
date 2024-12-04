@@ -4,6 +4,8 @@
  */
 package org.itson.implementaciones;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import org.itson.dominio.Pedido;
 import org.itson.interfaces.IFachada;
@@ -40,4 +42,10 @@ public class ControlPedido implements IControlPedido {
     public List<Pedido> consultarPedidos() {
         return fachada.consultarPedidos();
     }
+    
+    @Override
+    public List<Pedido> consultarPedidosPorEstadoYFechas(String estado, Date fechaInicio, Date fechaFinal) {
+        return fachada.consultarPedidosPorEstadoYFechas(estado, fechaInicio, fechaFinal);
+    }
+    
 }

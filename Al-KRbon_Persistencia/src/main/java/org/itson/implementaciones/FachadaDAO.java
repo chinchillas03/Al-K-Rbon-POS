@@ -4,6 +4,8 @@
  */
 package org.itson.implementaciones;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import org.itson.dominio.Administrador;
 import org.itson.dominio.Cajero;
@@ -189,6 +191,11 @@ public class FachadaDAO implements IFachada{
     @Override
     public List<Pedido> consultarPedidos() {
         return pedidoDAO.consultarPedidos();
+    }
+    
+    @Override
+    public List<Pedido> consultarPedidosPorEstadoYFechas(String estado, Date fechaInicio, Date fechaFinal) {
+        return pedidoDAO.consultarPedidosPorEstadoYFechas(estado, fechaInicio, fechaFinal);
     }
 
     @Override
