@@ -21,6 +21,8 @@ public interface IProducto {
     
     public List<Producto> consultarProductos();
     
+    public List<Producto> consultarProductosPorCategoria(Long categoria);
+    
     public Producto consultarProductoPorNombre(String nombre);
     
 }

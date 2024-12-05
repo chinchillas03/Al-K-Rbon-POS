@@ -16,5 +16,6 @@ public interface IControlProducto {
     Producto eliminarProducto(Producto producto);
     Producto actualizarProducto(Producto producto);
     List<Producto> consultarProductos();
+    List<Producto> consultarProductosPorCategoria(Long categoria);
     Producto consultarProductoPorNombre(String nombre);
 }

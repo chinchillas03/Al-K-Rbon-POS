@@ -4,20 +4,60 @@
  */
 package org.itson.presentacion;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import org.itson.dominio.Categoria;
+import org.itson.dominio.Producto;
+import org.itson.implementaciones.FachadaNegocio;
+
 /**
  *
  * @author Manuel Flores
  */
 public class AdministrarProductosFrm extends javax.swing.JFrame {
 
+    private static final Logger LOG = Logger.getLogger(AdministrarProductosFrm.class.getName());
+    FachadaNegocio fachada = new FachadaNegocio();
+    
     /**
      * Creates new form AdministrarProductosFrm
      */
-    public AdministrarProductosFrm() {
+    public AdministrarProductosFrm() {       
         initComponents();
+        this.consultarCategorias();
+        this.llenarTablaProductos();
         this.setExtendedState(MAXIMIZED_BOTH);
     }
 
+    private void consultarCategorias(){
+        List<Categoria> categorias = new LinkedList<>();
+        categorias = fachada.getControlCategoria().consultarCategorias();
+        for (Categoria categoria : categorias) {
+            cboxCategoria.addItem(categoria.getDescripcion());
+        }
+    }
+    
+    private void llenarTablaProductos(){
+        try {
+            DefaultTableModel modeloTabla = (DefaultTableModel) this.tablaProductos.getModel();
+            // TERMINAR POR FILTRADO ENTRE CATEGORIAS
+            List<Producto> listaProductos = fachada.getControlProducto().consultarProductos();
+            for (Producto p : listaProductos) {
+                Object[] fila = {
+                    p.getNombre(),
+                    p.getPrecio(),
+                    p.getDescripcion()
+                };
+                modeloTabla.addRow(fila);
+            }
+        } catch (Exception ex) {
+            LOG.log(Level.SEVERE, ex.getMessage());
+        }
+    }
+    
     public void mostrarPantallaAdminProductos(){
         this.setVisible(true);
     }
@@ -70,9 +110,10 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
         setExtendedState(6);
         setResizable(false);
 
-        cboxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Hamburguesas", "Bebidas", "Entradas", "Paquetes" }));
-        cboxCategoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cboxCategoria.setBackground(new java.awt.Color(255, 255, 255));
         cboxCategoria.setFont(new java.awt.Font("Arial Black", 1, 32)); // NOI18N
+        cboxCategoria.setForeground(new java.awt.Color(0, 0, 0));
+        cboxCategoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cboxCategoria.setMinimumSize(new java.awt.Dimension(1000, 600));
         cboxCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,7 +129,7 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
         tablaProductos.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
         tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"burguir", "$10.00", "Hola yo soy mateo mateo mateo mateo mateo"}
+
             },
             new String [] {
                 "Nombre", "Precio", "Descripción"
@@ -124,33 +165,33 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
             tablaProductos.getColumnModel().getColumn(2).setMaxWidth(0);
         }
 
-        btnAgregarProducto.setText("+ Agregar nuevo producto");
         btnAgregarProducto.setBackground(new java.awt.Color(0, 0, 255));
-        btnAgregarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAgregarProducto.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
         btnAgregarProducto.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregarProducto.setText("+ Agregar nuevo producto");
+        btnAgregarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarProductoActionPerformed(evt);
             }
         });
 
-        btnEditarProducto.setText("Editar");
         btnEditarProducto.setBackground(new java.awt.Color(102, 255, 102));
-        btnEditarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditarProducto.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
         btnEditarProducto.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditarProducto.setText("Editar");
+        btnEditarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarProductoActionPerformed(evt);
             }
         });
 
-        btnEliminarProducto.setText("Eliminar");
         btnEliminarProducto.setBackground(new java.awt.Color(255, 0, 0));
-        btnEliminarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminarProducto.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
         btnEliminarProducto.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminarProducto.setText("Eliminar");
+        btnEliminarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarProductoActionPerformed(evt);
@@ -161,13 +202,13 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
         lblTItulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTItulo.setText("Administrar productos");
 
-        btnRegresar.setText("<");
-        btnRegresar.setAlignmentY(0.0F);
         btnRegresar.setBackground(new java.awt.Color(255, 255, 255));
-        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 80)); // NOI18N
         btnRegresar.setForeground(new java.awt.Color(0, 0, 0));
+        btnRegresar.setText("<");
         btnRegresar.setToolTipText("");
+        btnRegresar.setAlignmentY(0.0F);
+        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarActionPerformed(evt);

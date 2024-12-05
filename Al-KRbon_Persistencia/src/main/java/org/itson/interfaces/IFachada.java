@@ -56,6 +56,8 @@ public interface IFachada {
     
     public List<Producto> consultarProductos();
     
+    public List<Producto> consultarProductosPorCategoria(Long categoria);
+    
     public Producto consultarProductoPorNombre(String nombre);
     
     public ProductoExtra registrarProductoExtra(ProductoExtra producto);

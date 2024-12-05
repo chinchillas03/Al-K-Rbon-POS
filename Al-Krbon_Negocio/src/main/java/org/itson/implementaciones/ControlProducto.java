@@ -45,5 +45,10 @@ public class ControlProducto implements IControlProducto{
     public Producto consultarProductoPorNombre(String nombre){
         return fachada.consultarProductoPorNombre(nombre);
     }
+
+    @Override
+    public List<Producto> consultarProductosPorCategoria(Long categoria) {
+        return fachada.consultarProductosPorCategoria(categoria);
+    }
     
 }

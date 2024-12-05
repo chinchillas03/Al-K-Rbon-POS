@@ -134,6 +134,11 @@ public class FachadaDAO implements IFachada{
     }
     
     @Override
+    public List<Producto> consultarProductosPorCategoria(Long categoria) {
+        return productoDAO.consultarProductosPorCategoria(categoria);
+    }
+    
+    @Override
     public Producto consultarProductoPorNombre(String nombre){
         return productoDAO.consultarProductoPorNombre(nombre);
     }
@@ -221,6 +226,6 @@ public class FachadaDAO implements IFachada{
     @Override
     public ProductoPedido actualizarProductoPedido(ProductoPedido pedido) {
         return productoPedidoDAO.actualizarProductoPedido(pedido);
-    }
+    }   
     
 }

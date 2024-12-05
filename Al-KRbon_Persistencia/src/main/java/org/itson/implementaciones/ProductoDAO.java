@@ -129,4 +129,19 @@ public class ProductoDAO implements IProducto {
         return producto;
     }
 
+    @Override
+    public List<Producto> consultarProductosPorCategoria(Long categoria) {
+        EntityManager em = null;
+        List<Producto> productos = null;
+        try {
+            productos = em.createQuery(
+                    "SELECT p FROM Producto p WHERE p.categoriaId = :categoriaId", Producto.class)
+                    .setParameter("categoriaId", categoria)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+        return productos;
+    }
+
 }
