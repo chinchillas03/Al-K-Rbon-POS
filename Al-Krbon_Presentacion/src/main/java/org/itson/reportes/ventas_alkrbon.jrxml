@@ -12,15 +12,15 @@
 			<style backcolor="#E6DAC3"/>
 		</conditionalStyle>
 	</style>
+	<parameter name="periodo" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="id" class="java.lang.Integer"/>
-	<field name="fecha" class="java.util.Date"/>
+	<field name="id" class="java.lang.Long"/>
+	<field name="fechaHoraPedido" class="java.util.Date"/>
 	<field name="formaEntrega" class="java.lang.String"/>
 	<field name="calificacion" class="java.lang.Double"/>
 	<field name="total" class="java.lang.Double"/>
-	<field name="parametros" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -32,29 +32,31 @@
 			</image>
 			<staticText>
 				<reportElement style="Title" x="270" y="0" width="531" height="62" uuid="bc1ce1da-8232-46ea-be55-cec4abb986dd"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="46"/>
+				</textElement>
 				<text><![CDATA[Reporte de ventas]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="SubTitle" x="370" y="62" width="100" height="32" forecolor="#736343" uuid="f6a78448-8260-4445-a9e0-e3fb53b080d9"/>
+				<reportElement style="SubTitle" x="330" y="62" width="140" height="32" forecolor="#736343" uuid="f6a78448-8260-4445-a9e0-e3fb53b080d9"/>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Periodo del:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="418" y="94" width="383" height="42" uuid="8240065e-64b6-4170-b5d9-6341598e7b35"/>
 				<textElement textAlignment="Right">
-					<font size="10"/>
+					<font fontName="Arial" size="10"/>
 				</textElement>
 				<text><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce auctor purus gravida arcu aliquam mattis. Donec et nulla libero, ut varius massa. Nulla sed turpis elit. Etiam aliquet mauris a ligula hendrerit in auctor leo lobortis.]]></text>
 			</staticText>
 			<textField textAdjust="StretchHeight">
 				<reportElement x="480" y="63" width="322" height="30" uuid="12882813-7b12-4520-b86c-c988f941793f"/>
 				<textElement>
-					<font fontName="Times New Roman&#xD;&#xA;" size="18" isBold="false"/>
+					<font fontName="Arial" size="18" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{parametros}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{periodo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -72,35 +74,35 @@
 			<staticText>
 				<reportElement x="10" y="0" width="110" height="30" uuid="14d55427-d1fa-46d5-8372-54c6291d51a5"/>
 				<textElement>
-					<font fontName="Times New Roman" size="16" isBold="true"/>
+					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ID]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="120" y="0" width="250" height="30" uuid="dab1a11a-9c2d-4fea-ae7b-21fdd9a2abf4"/>
 				<textElement>
-					<font fontName="Times New Roman" size="16" isBold="true"/>
+					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Fecha y hora]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="370" y="0" width="150" height="30" uuid="c54b4dc2-68b2-4335-ad50-2ee576d49332"/>
 				<textElement>
-					<font fontName="Times New Roman" size="16" isBold="true"/>
+					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Forma de entrega]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="520" y="0" width="132" height="30" uuid="800910ca-3b05-43f8-a6ac-9872ff106825"/>
 				<textElement>
-					<font fontName="Times New Roman" size="16" isBold="true"/>
+					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Calificación]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="652" y="0" width="138" height="30" uuid="6c1d2b58-e322-4425-80bd-de0070151d5c"/>
 				<textElement>
-					<font fontName="Times New Roman" size="16" isBold="true"/>
+					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total]]></text>
 			</staticText>
@@ -115,7 +117,7 @@
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a120451c-7775-40c0-8223-5245ee4df5b8"/>
 					</reportElement>
 					<textElement>
-						<font fontName="Times New Roman" size="16" isBold="true"/>
+						<font fontName="Arial" size="16" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 				</textField>
@@ -124,16 +126,16 @@
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bb8c9a63-749b-4adf-aba2-c4db1c81223c"/>
 					</reportElement>
 					<textElement>
-						<font fontName="Times New Roman&#xD;&#xA;" size="16" isBold="true"/>
+						<font fontName="Arial" size="16" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{fechaHoraPedido}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement x="370" y="0" width="150" height="30" uuid="88e8695c-a34d-4d88-908e-ca1ee0c0e9ef">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cd2328fa-b17e-4aa5-bf24-148db49e6039"/>
 					</reportElement>
 					<textElement>
-						<font fontName="Times New Roman&#xD;&#xA;" size="16" isBold="true"/>
+						<font fontName="Arial" size="16" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{formaEntrega}]]></textFieldExpression>
 				</textField>
@@ -142,7 +144,7 @@
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="73aba074-3f3f-4f3c-b672-80816ca0b73b"/>
 					</reportElement>
 					<textElement>
-						<font fontName="Times New Roman&#xD;&#xA;" size="16" isBold="true"/>
+						<font fontName="Arial" size="16" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{calificacion}]]></textFieldExpression>
 				</textField>
@@ -151,7 +153,7 @@
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6b4aaa79-6fab-49ee-a5c3-514cfd1cbb73"/>
 					</reportElement>
 					<textElement>
-						<font fontName="Times New Roman&#xD;&#xA;" size="16" isBold="true"/>
+						<font fontName="Arial" size="16" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 				</textField>
@@ -175,21 +177,21 @@
 				<textField evaluationTime="Report">
 					<reportElement style="Column header" x="783" y="1" width="40" height="20" forecolor="#030201" uuid="e5e27efa-b599-499b-9ca3-848cb511cb7b"/>
 					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="false"/>
+						<font fontName="Arial" size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement style="Column header" x="703" y="1" width="80" height="20" forecolor="#030202" uuid="18cfe1ca-f7d6-48b0-9827-28578b42a5e0"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font size="10" isBold="false"/>
+						<font fontName="Arial" size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 				</textField>
 				<textField pattern="EEEEE dd MMMMM yyyy">
 					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#030302" uuid="fbce24bb-3cb1-44a3-8eec-8c067ddbe5b5"/>
 					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="false"/>
+						<font fontName="Arial" size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>

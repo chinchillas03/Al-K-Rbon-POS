@@ -4,7 +4,7 @@
  */
 package org.itson.presentacion;
 
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,7 +13,9 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import org.itson.dominio.Pedido;
 import org.itson.implementaciones.ControlPedido;
@@ -24,6 +26,7 @@ import org.itson.implementaciones.FachadaNegocio;
  * @author Manuel Flores
  */
 public class ReportesFrm extends javax.swing.JFrame {
+
     private ControlPedido controlPedido;
     private FachadaNegocio fachada;
 
@@ -38,7 +41,7 @@ public class ReportesFrm extends javax.swing.JFrame {
         fachada = new FachadaNegocio();
     }
 
-    private void generarReporte(){
+    private void generarReporte() {
         try {
             Date fechaInicio = Date.from(dpInicio.getDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
             Date fechaFinal = Date.from(dpFinal.getDate().atTime(23, 59, 59).atZone(ZoneId.systemDefault()).toInstant());
@@ -47,12 +50,12 @@ public class ReportesFrm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Por favor selecciona ambas fechas.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
+            
             if (fechaInicio.after(fechaFinal)) {
                 JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser mayor a la fecha final.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            
+
             List<Pedido> pedidos = fachada.getControlPedido().consultarPedidosPorEstadoYFechas("Pendiente", fechaInicio, fechaFinal);
 
             if (pedidos.isEmpty()) {
@@ -60,11 +63,13 @@ public class ReportesFrm extends javax.swing.JFrame {
                 return;
             }
 
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String periodo = dateFormat.format(fechaInicio) + " al " + dateFormat.format(fechaFinal);
+
             String rutaReporte = "src/main/java/org/itson/reportes/ventas_alkrbon.jasper";
 
             Map<String, Object> parametros = new HashMap<>();
-            parametros.put("fechaInicio", fechaInicio.toString());
-            parametros.put("fechaFinal", fechaFinal.toString());
+            parametros.put("periodo", periodo);
 
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(pedidos);
 
@@ -78,8 +83,9 @@ public class ReportesFrm extends javax.swing.JFrame {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al generar el reporte: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
