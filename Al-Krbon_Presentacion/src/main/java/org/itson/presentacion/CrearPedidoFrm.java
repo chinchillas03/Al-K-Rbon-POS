@@ -420,6 +420,14 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
         }
     }
 
+    public void mostrarCrearPedido(){
+        this.setVisible(true);
+    }
+    
+    public void ocultarCrearPedido(){
+        this.setVisible(false);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -18,6 +18,20 @@ public class EditarProductosFrm extends javax.swing.JFrame {
         this.setExtendedState(MAXIMIZED_BOTH);
     }
 
+    public void mostrarEditarProducto(){
+        this.setVisible(true);
+    }
+    
+    public void ocultarEditarProducto(){
+        this.setVisible(false);
+    }
+    
+    private void mostrarPantallaAdministrarProd(){
+        AdministrarProductosFrm admin = new AdministrarProductosFrm();
+        admin.mostrarPantallaAdminProductos();
+        this.ocultarEditarProducto();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,7 +48,7 @@ public class EditarProductosFrm extends javax.swing.JFrame {
         tfNombre = new javax.swing.JTextField();
         spDesc = new javax.swing.JScrollPane();
         txaDesc = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         lblDesc1 = new javax.swing.JLabel();
         btnEditar = new javax.swing.JButton();
 
@@ -65,10 +79,15 @@ public class EditarProductosFrm extends javax.swing.JFrame {
         txaDesc.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         spDesc.setViewportView(txaDesc);
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 80)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("<");
+        btnRegresar.setBackground(new java.awt.Color(255, 255, 255));
+        btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 80)); // NOI18N
+        btnRegresar.setForeground(new java.awt.Color(0, 0, 0));
+        btnRegresar.setText("<");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         lblDesc1.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
         lblDesc1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -86,7 +105,7 @@ public class EditarProductosFrm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(618, 618, 618)
                         .addComponent(lblTitulo))
                     .addGroup(layout.createSequentialGroup()
@@ -106,7 +125,7 @@ public class EditarProductosFrm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTitulo))
                 .addGap(75, 75, 75)
                 .addComponent(lblNombre)
@@ -127,6 +146,11 @@ public class EditarProductosFrm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+        this.mostrarPantallaAdministrarProd();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,7 +192,7 @@ public class EditarProductosFrm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel lblDesc;
     private javax.swing.JLabel lblDesc1;
     private javax.swing.JLabel lblNombre;

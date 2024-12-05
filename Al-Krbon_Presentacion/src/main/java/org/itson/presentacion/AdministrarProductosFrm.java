@@ -18,6 +18,35 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
         this.setExtendedState(MAXIMIZED_BOTH);
     }
 
+    public void mostrarPantallaAdminProductos(){
+        this.setVisible(true);
+    }
+    
+    public void ocultarPantallaAdminProductos(){
+        this.setVisible(false);
+    }
+    
+    private void mostrarPantallaPrincipal(){
+        PantallaPrincipalFrm principal = new PantallaPrincipalFrm();
+        principal.mostrarPantallaPrincipal();
+        this.ocultarPantallaAdminProductos();
+    }
+    
+    private void mostrarAgregarProducto(){
+        AgregarProductosFrm agregar = new AgregarProductosFrm();
+        agregar.mostrarAgregarProducto();
+        this.ocultarPantallaAdminProductos();
+    }
+    
+    private void mostrarEditarProducto(){
+        EditarProductosFrm editar = new EditarProductosFrm();
+        editar.mostrarEditarProducto();
+        this.ocultarPantallaAdminProductos();
+    }
+    
+    private void mostrarEliminarProducto(){
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,16 +63,16 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
         btnEditarProducto = new javax.swing.JButton();
         btnEliminarProducto = new javax.swing.JButton();
         lblTItulo = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administrar productos");
         setExtendedState(6);
         setResizable(false);
 
-        cboxCategoria.setFont(new java.awt.Font("Arial Black", 1, 32)); // NOI18N
         cboxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Hamburguesas", "Bebidas", "Entradas", "Paquetes" }));
         cboxCategoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cboxCategoria.setFont(new java.awt.Font("Arial Black", 1, 32)); // NOI18N
         cboxCategoria.setMinimumSize(new java.awt.Dimension(1000, 600));
         cboxCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,28 +124,33 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
             tablaProductos.getColumnModel().getColumn(2).setMaxWidth(0);
         }
 
+        btnAgregarProducto.setText("+ Agregar nuevo producto");
         btnAgregarProducto.setBackground(new java.awt.Color(0, 0, 255));
+        btnAgregarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAgregarProducto.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
         btnAgregarProducto.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregarProducto.setText("+ Agregar nuevo producto");
-        btnAgregarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarProductoActionPerformed(evt);
+            }
+        });
 
+        btnEditarProducto.setText("Editar");
         btnEditarProducto.setBackground(new java.awt.Color(102, 255, 102));
+        btnEditarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditarProducto.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
         btnEditarProducto.setForeground(new java.awt.Color(255, 255, 255));
-        btnEditarProducto.setText("Editar");
-        btnEditarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarProductoActionPerformed(evt);
             }
         });
 
+        btnEliminarProducto.setText("Eliminar");
         btnEliminarProducto.setBackground(new java.awt.Color(255, 0, 0));
+        btnEliminarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminarProducto.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
         btnEliminarProducto.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminarProducto.setText("Eliminar");
-        btnEliminarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarProductoActionPerformed(evt);
@@ -127,13 +161,18 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
         lblTItulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTItulo.setText("Administrar productos");
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 80)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("<");
-        jButton1.setToolTipText("");
-        jButton1.setAlignmentY(0.0F);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresar.setText("<");
+        btnRegresar.setAlignmentY(0.0F);
+        btnRegresar.setBackground(new java.awt.Color(255, 255, 255));
+        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 80)); // NOI18N
+        btnRegresar.setForeground(new java.awt.Color(0, 0, 0));
+        btnRegresar.setToolTipText("");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -156,7 +195,7 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
                             .addComponent(spProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 1550, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(185, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(476, 476, 476)
                 .addComponent(lblTItulo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -165,7 +204,7 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTItulo))
                 .addGap(41, 41, 41)
                 .addComponent(cboxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -193,11 +232,20 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
 
     private void btnEditarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProductoActionPerformed
         // TODO add your handling code here:
+        this.mostrarEditarProducto();
     }//GEN-LAST:event_btnEditarProductoActionPerformed
 
     private void btnEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarProductoActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        this.mostrarPantallaPrincipal();
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
+        this.mostrarAgregarProducto();
+    }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -241,8 +289,8 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregarProducto;
     private javax.swing.JButton btnEditarProducto;
     private javax.swing.JButton btnEliminarProducto;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<String> cboxCategoria;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblTItulo;
     private javax.swing.JScrollPane spProductos;
     private javax.swing.JTable tablaProductos;

@@ -18,6 +18,20 @@ public class AgregarProductosFrm extends javax.swing.JFrame {
         this.setExtendedState(MAXIMIZED_BOTH);
     }
 
+    public void mostrarAgregarProducto(){
+        this.setVisible(true);
+    }
+    
+    public void ocultarAgregarProducto(){
+        this.setVisible(false);
+    }
+    
+    private void mostrarAdministrarProductos(){
+        AdministrarProductosFrm admin = new AdministrarProductosFrm();
+        admin.mostrarPantallaAdminProductos();
+        this.ocultarAgregarProducto();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,7 +50,7 @@ public class AgregarProductosFrm extends javax.swing.JFrame {
         btnAgregarProducto = new javax.swing.JButton();
         spDesc = new javax.swing.JScrollPane();
         txaDesc = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        btnRegresarAdminProductos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(6);
@@ -65,6 +79,7 @@ public class AgregarProductosFrm extends javax.swing.JFrame {
 
         btnAgregarProducto.setBackground(new java.awt.Color(0, 0, 255));
         btnAgregarProducto.setFont(new java.awt.Font("Arial Black", 1, 32)); // NOI18N
+        btnAgregarProducto.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregarProducto.setText("Agregar producto");
 
         txaDesc.setColumns(20);
@@ -73,17 +88,22 @@ public class AgregarProductosFrm extends javax.swing.JFrame {
         txaDesc.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         spDesc.setViewportView(txaDesc);
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 80)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("<");
+        btnRegresarAdminProductos.setBackground(new java.awt.Color(255, 255, 255));
+        btnRegresarAdminProductos.setFont(new java.awt.Font("Segoe UI", 1, 80)); // NOI18N
+        btnRegresarAdminProductos.setForeground(new java.awt.Color(0, 0, 0));
+        btnRegresarAdminProductos.setText("<");
+        btnRegresarAdminProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarAdminProductosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRegresarAdminProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(521, 521, 521)
                 .addComponent(lblTitulo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -106,7 +126,7 @@ public class AgregarProductosFrm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegresarAdminProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTitulo))
                 .addGap(62, 62, 62)
                 .addComponent(lblNombre)
@@ -128,6 +148,11 @@ public class AgregarProductosFrm extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegresarAdminProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarAdminProductosActionPerformed
+        // TODO add your handling code here:
+        this.mostrarAdministrarProductos();
+    }//GEN-LAST:event_btnRegresarAdminProductosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,7 +198,7 @@ public class AgregarProductosFrm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarProducto;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnRegresarAdminProductos;
     private javax.swing.JLabel lblDesc;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPrecio;
