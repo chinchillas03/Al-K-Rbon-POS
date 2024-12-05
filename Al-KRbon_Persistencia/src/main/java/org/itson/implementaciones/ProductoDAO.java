@@ -8,7 +8,9 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import org.itson.conexion.ConexionBD;
 import org.itson.dominio.Producto;
 import org.itson.interfaces.IProducto;
@@ -48,24 +50,30 @@ public class ProductoDAO implements IProducto {
     }
 
     @Override
-    public Producto eliminarProducto(Producto producto) {
+    public Producto eliminarProducto(Long productoId) {
         EntityManager em = null;
+        Producto productoEliminado = null;
         try {
             em = manager.createEntityManager();
-            em.getTransaction().begin();
-            em.remove(producto);
+            em.getTransaction().begin(); 
+            Producto producto = em.find(Producto.class, productoId);
+            if (producto != null) {
+                productoEliminado = producto; 
+                em.remove(producto); 
+            } else {
+                throw new Exception("Producto no encontrado");
+            }
+
             em.getTransaction().commit();
-            return producto;
         } catch (Exception e) {
-            if (em != null && em.getTransaction().isActive()) {
+            if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            throw e;
+            throw new RuntimeException("Error al eliminar producto", e);
         } finally {
-            if (em != null) {
-                em.close();
-            }
+            em.close();
         }
+        return productoEliminado;
     }
 
     @Override
@@ -112,11 +120,9 @@ public class ProductoDAO implements IProducto {
         Producto producto = null;
         try {
             em = manager.createEntityManager();
-
-            // Consulta JPQL para obtener el producto por nombre
             producto = em.createQuery("SELECT p FROM Producto p WHERE p.nombre = :nombre", Producto.class)
                     .setParameter("nombre", nombre)
-                    .getSingleResult();  // Asumiendo que el nombre es único
+                    .getSingleResult();
         } catch (NoResultException e) {
             System.out.println("No se encontró un producto con ese nombre.");
         } catch (Exception e) {
@@ -130,18 +136,42 @@ public class ProductoDAO implements IProducto {
     }
 
     @Override
-    public List<Producto> consultarProductosPorCategoria(Long categoria) {
+    public List<Producto> consultarProductosPorCategoria(Long categoriaId) {
         EntityManager em = null;
-        List<Producto> productos = null;
         try {
-            productos = em.createQuery(
-                    "SELECT p FROM Producto p WHERE p.categoriaId = :categoriaId", Producto.class)
-                    .setParameter("categoriaId", categoria)
-                    .getResultList();
+            em = manager.createEntityManager();
+            String jpql = "SELECT p FROM Producto p WHERE p.categoria.id = :categoriaId";
+            TypedQuery<Producto> query = em.createQuery(jpql, Producto.class);
+            query.setParameter("categoriaId", categoriaId);
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new RuntimeException("Error al consultar productos por categoría", e);
         } finally {
-            em.close();
+            if (em != null) {
+                em.close();
+            }
         }
-        return productos;
+    }
+
+    @Override
+    public Producto consultarProductoPorId(Long productoId) {
+        EntityManager em = null;
+        Producto producto = null;
+        try {
+            em = manager.createEntityManager();
+            producto = em.find(Producto.class, productoId);
+
+            if (producto == null) {
+                throw new RuntimeException("Producto no encontrado");
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return producto;
     }
 
 }

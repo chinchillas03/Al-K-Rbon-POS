@@ -13,9 +13,10 @@ import org.itson.dominio.Producto;
  */
 public interface IControlProducto {
     Producto registrarProducto(Producto producto);
-    Producto eliminarProducto(Producto producto);
+    Producto eliminarProducto(Long producto);
     Producto actualizarProducto(Producto producto);
     List<Producto> consultarProductos();
     List<Producto> consultarProductosPorCategoria(Long categoria);
     Producto consultarProductoPorNombre(String nombre);
+    Producto consultarProductoPorId(Long nombre);
 }

@@ -27,7 +27,7 @@ public class ControlProducto implements IControlProducto{
     }
 
     @Override
-    public Producto eliminarProducto(Producto producto) {
+    public Producto eliminarProducto(Long producto) {
         return fachada.eliminarProducto(producto);
     }
 
@@ -49,6 +49,11 @@ public class ControlProducto implements IControlProducto{
     @Override
     public List<Producto> consultarProductosPorCategoria(Long categoria) {
         return fachada.consultarProductosPorCategoria(categoria);
+    }
+
+    @Override
+    public Producto consultarProductoPorId(Long id) {
+        return fachada.consultarProductoPorId(id);
     }
     
 }

@@ -50,7 +50,7 @@ public interface IFachada {
     
     public Producto registrarProducto(Producto producto);
     
-    public Producto eliminarProducto(Producto producto);
+    public Producto eliminarProducto(Long producto);
     
     public Producto actualizarProducto(Producto producto);
     
@@ -59,6 +59,8 @@ public interface IFachada {
     public List<Producto> consultarProductosPorCategoria(Long categoria);
     
     public Producto consultarProductoPorNombre(String nombre);
+    
+    public Producto consultarProductoPorId(Long id);
     
     public ProductoExtra registrarProductoExtra(ProductoExtra producto);
     

@@ -15,7 +15,7 @@ public interface IProducto {
     
     public Producto registrarProducto(Producto producto);
     
-    public Producto eliminarProducto(Producto producto);
+    public Producto eliminarProducto(Long producto);
     
     public Producto actualizarProducto(Producto producto);
     
@@ -24,5 +24,7 @@ public interface IProducto {
     public List<Producto> consultarProductosPorCategoria(Long categoria);
     
     public Producto consultarProductoPorNombre(String nombre);
+   
+    public Producto consultarProductoPorId(Long id);
     
 }

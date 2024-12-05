@@ -4,22 +4,40 @@
  */
 package org.itson.presentacion;
 
+import javax.swing.JOptionPane;
+import org.itson.dominio.Producto;
+import org.itson.implementaciones.FachadaNegocio;
+
 /**
  *
  * @author Manuel Flores
  */
 public class EditarProductosFrm extends javax.swing.JFrame {
 
+    Producto productoEditar = null;
+    FachadaNegocio fachada = new FachadaNegocio();
+    
     /**
      * Creates new form EditarProductos
      */
-    public EditarProductosFrm() {
+    public EditarProductosFrm(Long id) {
         initComponents();
+        this.cargarProducto(id);
         this.setExtendedState(MAXIMIZED_BOTH);
     }
 
-    public void mostrarEditarProducto(){
+    public void mostrarEditarProducto(Long productoId){
         this.setVisible(true);
+    }
+    
+    private void cargarProducto(Long productoId){
+        try {
+            productoEditar = fachada.getControlProducto().consultarProductoPorId(productoId);     
+            tfNombre.setText(productoEditar.getNombre());
+            tfPrecio.setText(Double.toString(productoEditar.getPrecio()));
+            txaDesc.setText(productoEditar.getDescripcion());
+        } catch (Exception e) {
+        }
     }
     
     public void ocultarEditarProducto(){
@@ -31,7 +49,41 @@ public class EditarProductosFrm extends javax.swing.JFrame {
         admin.mostrarPantallaAdminProductos();
         this.ocultarEditarProducto();
     }
+
+    private void editarProducto() {
+        try {
+            if (tfNombre.getText().isEmpty() || tfNombre.getText().isBlank()) {
+                JOptionPane.showMessageDialog(null, "\nNombre vacio o en blanco", "Error En la Operacion.", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (txaDesc.getText().isEmpty() || txaDesc.getText().isBlank()) {
+                JOptionPane.showMessageDialog(null, "\nDescripcion vacia o en blanco", "Error En la Operacion.", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (tfPrecio.getText().isEmpty() || tfPrecio.getText().isBlank() || !esNumeroValido(tfPrecio.getText())) {
+                JOptionPane.showMessageDialog(null, "\nPrecio no valido", "Error En la Operacion.", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            productoEditar.setNombre(tfNombre.getText());
+            productoEditar.setDescripcion(txaDesc.getText());
+            productoEditar.setPrecio(Double.parseDouble(tfPrecio.getText()));
+            fachada.getControlProducto().actualizarProducto(productoEditar);
+            JOptionPane.showMessageDialog(null, "\nProducto actualizado correctamente", "Producto actualizado", JOptionPane.INFORMATION_MESSAGE);
+            this.mostrarPantallaAdministrarProd();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "\nError al actualizar en la base de datos", "Error En la Operacion.", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     
+    public boolean esNumeroValido(String texto) {
+        try {
+            Double.parseDouble(texto); 
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,14 +119,20 @@ public class EditarProductosFrm extends javax.swing.JFrame {
         lblNombre.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblNombre.setText("Nombre del producto");
 
-        tfPrecio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tfPrecio.setBackground(new java.awt.Color(255, 255, 255));
+        tfPrecio.setFont(new java.awt.Font("Arial", 0, 30)); // NOI18N
+        tfPrecio.setForeground(new java.awt.Color(0, 0, 0));
         tfPrecio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        tfNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tfNombre.setBackground(new java.awt.Color(255, 255, 255));
+        tfNombre.setFont(new java.awt.Font("Arial", 0, 30)); // NOI18N
+        tfNombre.setForeground(new java.awt.Color(0, 0, 0));
         tfNombre.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
+        txaDesc.setBackground(new java.awt.Color(255, 255, 255));
         txaDesc.setColumns(20);
-        txaDesc.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txaDesc.setFont(new java.awt.Font("Arial", 0, 30)); // NOI18N
+        txaDesc.setForeground(new java.awt.Color(0, 0, 0));
         txaDesc.setRows(5);
         txaDesc.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         spDesc.setViewportView(txaDesc);
@@ -97,6 +155,11 @@ public class EditarProductosFrm extends javax.swing.JFrame {
         btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
         btnEditar.setForeground(new java.awt.Color(255, 255, 255));
         btnEditar.setText("Editar producto");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,43 +215,10 @@ public class EditarProductosFrm extends javax.swing.JFrame {
         this.mostrarPantallaAdministrarProd();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditarProductosFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditarProductosFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditarProductosFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditarProductosFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EditarProductosFrm().setVisible(true);
-            }
-        });
-    }
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        this.editarProducto();
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;

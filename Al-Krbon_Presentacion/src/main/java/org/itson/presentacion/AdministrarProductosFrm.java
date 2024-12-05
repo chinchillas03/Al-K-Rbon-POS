@@ -4,10 +4,13 @@
  */
 package org.itson.presentacion;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.itson.dominio.Categoria;
 import org.itson.dominio.Producto;
@@ -19,6 +22,7 @@ import org.itson.implementaciones.FachadaNegocio;
  */
 public class AdministrarProductosFrm extends javax.swing.JFrame {
 
+    Map<String, Long> categoriaMap = new HashMap<>();
     private static final Logger LOG = Logger.getLogger(AdministrarProductosFrm.class.getName());
     FachadaNegocio fachada = new FachadaNegocio();
     
@@ -28,6 +32,7 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
     public AdministrarProductosFrm() {       
         initComponents();
         this.consultarCategorias();
+        this.hacerColumnaInvisible();
         this.llenarTablaProductos();
         this.setExtendedState(MAXIMIZED_BOTH);
     }
@@ -36,23 +41,40 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
         List<Categoria> categorias = new LinkedList<>();
         categorias = fachada.getControlCategoria().consultarCategorias();
         for (Categoria categoria : categorias) {
+            categoriaMap.put(categoria.getDescripcion(), categoria.getId());
             cboxCategoria.addItem(categoria.getDescripcion());
         }
     }
-    
-    private void llenarTablaProductos(){
+
+    private void hacerColumnaInvisible() {
+        tablaProductos.getColumnModel().getColumn(0).setMinWidth(0);
+        tablaProductos.getColumnModel().getColumn(0).setMaxWidth(0);
+        tablaProductos.getColumnModel().getColumn(0).setWidth(0);
+    }
+
+    private void llenarTablaProductos() {
         try {
             DefaultTableModel modeloTabla = (DefaultTableModel) this.tablaProductos.getModel();
-            // TERMINAR POR FILTRADO ENTRE CATEGORIAS
-            List<Producto> listaProductos = fachada.getControlProducto().consultarProductos();
+            String categoriaSeleccionada = cboxCategoria.getSelectedItem().toString();
+            Long categoriaId = null;
+            if (categoriaSeleccionada != null && categoriaMap.containsKey(categoriaSeleccionada)) {
+                categoriaId = categoriaMap.get(categoriaSeleccionada);
+                System.out.println("El ID de la categoría seleccionada es: " + categoriaId);
+                modeloTabla.setRowCount(0);
+            } else {
+                System.out.println("Categoría no encontrada en el mapa.");
+            }
+            List<Producto> listaProductos = fachada.getControlProducto().consultarProductosPorCategoria(categoriaId);
             for (Producto p : listaProductos) {
                 Object[] fila = {
+                    p.getId(),
                     p.getNombre(),
                     p.getPrecio(),
                     p.getDescripcion()
                 };
                 modeloTabla.addRow(fila);
             }
+            tablaProductos.repaint();
         } catch (Exception ex) {
             LOG.log(Level.SEVERE, ex.getMessage());
         }
@@ -78,13 +100,39 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
         this.ocultarPantallaAdminProductos();
     }
     
-    private void mostrarEditarProducto(){
-        EditarProductosFrm editar = new EditarProductosFrm();
-        editar.mostrarEditarProducto();
-        this.ocultarPantallaAdminProductos();
+    private void mostrarEditarProducto() {        
+        int filaseleccionada;
+        try {
+            filaseleccionada = tablaProductos.getSelectedRow();
+            if (filaseleccionada == -1) {
+                JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila.");
+            } else {
+                Long productoId = (Long) tablaProductos.getValueAt(filaseleccionada, 0);
+                EditarProductosFrm editar = new EditarProductosFrm(productoId);
+                editar.setVisible(true);
+                this.ocultarPantallaAdminProductos();
+            }
+            tablaProductos.repaint();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex + "\nInténtelo nuevamente", "Error En la Operacion.", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
-    
-    private void mostrarEliminarProducto(){
+
+    private void eliminarProducto() {
+//        int filaseleccionada;
+//        try {
+//            filaseleccionada = tablaProductos.getSelectedRow();
+//            if (filaseleccionada == -1) {
+//                JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila.");
+//            } else {
+//                Long productoId = (Long) tablaProductos.getValueAt(filaseleccionada, 0);
+//                fachada.getControlProducto().eliminarProducto((Long)productoId);
+//            }
+//            tablaProductos.repaint();
+//        } catch (Exception ex) {
+//            JOptionPane.showMessageDialog(null, "Error: " + ex + "\nInténtelo nuevamente", "Error En la Operacion.", JOptionPane.ERROR_MESSAGE);
+//        }
     }
     
     /**
@@ -132,14 +180,14 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Precio", "Descripción"
+                "Id", "Nombre", "Precio", "Descripción"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -269,6 +317,7 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
 
     private void cboxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxCategoriaActionPerformed
         // TODO add your handling code here:
+        this.llenarTablaProductos();
     }//GEN-LAST:event_cboxCategoriaActionPerformed
 
     private void btnEditarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProductoActionPerformed
@@ -278,6 +327,7 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
 
     private void btnEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductoActionPerformed
         // TODO add your handling code here:
+        this.eliminarProducto();
     }//GEN-LAST:event_btnEliminarProductoActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed

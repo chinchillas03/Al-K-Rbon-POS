@@ -119,7 +119,7 @@ public class FachadaDAO implements IFachada{
     }
 
     @Override
-    public Producto eliminarProducto(Producto producto) {
+    public Producto eliminarProducto(Long producto) {
         return productoDAO.eliminarProducto(producto);
     }
 
@@ -143,6 +143,11 @@ public class FachadaDAO implements IFachada{
         return productoDAO.consultarProductoPorNombre(nombre);
     }
 
+    @Override
+    public Producto consultarProductoPorId(Long id) {
+        return productoDAO.consultarProductoPorId(id);
+    }
+    
     @Override
     public ProductoExtra registrarProductoExtra(ProductoExtra producto) {
         return productoExtraDAO.registrarProductoExtra(producto);
@@ -226,6 +231,6 @@ public class FachadaDAO implements IFachada{
     @Override
     public ProductoPedido actualizarProductoPedido(ProductoPedido pedido) {
         return productoPedidoDAO.actualizarProductoPedido(pedido);
-    }   
+    }      
     
 }
