@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -62,6 +63,9 @@ public class ReportesFrm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "No hay datos para el rango de fechas seleccionado.", "Sin datos", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
+            
+            double totalVendido = pedidos.stream().mapToDouble(Pedido::getTotal).sum();
+            String totalVendidoFormateado = String.format("%.2f", totalVendido);
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String periodo = dateFormat.format(fechaInicio) + " al " + dateFormat.format(fechaFinal);
@@ -70,11 +74,12 @@ public class ReportesFrm extends javax.swing.JFrame {
 
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("periodo", periodo);
+            parametros.put("totalVendido", totalVendidoFormateado);
 
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(pedidos);
-
+            
             JasperPrint jasperPrint = JasperFillManager.fillReport(rutaReporte, parametros, dataSource);
-
+            
             JasperViewer viewer = new JasperViewer(jasperPrint, false);
             viewer.setTitle("Reporte de Ventas - Al Krbon");
             viewer.setVisible(true);

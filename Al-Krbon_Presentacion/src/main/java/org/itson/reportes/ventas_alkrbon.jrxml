@@ -13,6 +13,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="periodo" class="java.lang.String"/>
+	<parameter name="totalVendido" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -25,10 +26,10 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="148" splitType="Stretch">
+		<band height="149" splitType="Stretch">
 			<image>
-				<reportElement x="30" y="0" width="139" height="136" uuid="1c003177-754c-448f-8ce1-16868856f545"/>
-				<imageExpression><![CDATA["alkrbonimage.jpg"]]></imageExpression>
+				<reportElement style="Title" x="30" y="0" width="160" height="149" uuid="1c003177-754c-448f-8ce1-16868856f545"/>
+				<imageExpression><![CDATA["alkrbonpng.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement style="Title" x="270" y="0" width="531" height="62" uuid="bc1ce1da-8232-46ea-be55-cec4abb986dd"/>
@@ -44,19 +45,26 @@
 				</textElement>
 				<text><![CDATA[Periodo del:]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="418" y="94" width="383" height="42" uuid="8240065e-64b6-4170-b5d9-6341598e7b35"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial" size="10"/>
-				</textElement>
-				<text><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce auctor purus gravida arcu aliquam mattis. Donec et nulla libero, ut varius massa. Nulla sed turpis elit. Etiam aliquet mauris a ligula hendrerit in auctor leo lobortis.]]></text>
-			</staticText>
 			<textField textAdjust="StretchHeight">
 				<reportElement x="480" y="63" width="322" height="30" uuid="12882813-7b12-4520-b86c-c988f941793f"/>
 				<textElement>
 					<font fontName="Arial" size="18" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{periodo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="SubTitle" x="330" y="104" width="140" height="32" forecolor="#736343" uuid="8bbc4147-5363-4d5f-aa7f-50e9c9b417b9"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total vendido:]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="480" y="104" width="322" height="32" uuid="7fb19d85-7651-4637-a783-c55d3aa99a75"/>
+				<textElement>
+					<font fontName="Arial" size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalVendido}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
