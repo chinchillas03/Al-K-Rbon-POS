@@ -73,8 +73,15 @@ public class AdministrarPedidosFrm extends javax.swing.JFrame {
                 int filaSeleccionada = tablaPedidos.getSelectedRow();
                 if (filaSeleccionada != -1) {
                     Long idPedido = (Long) modelo.getValueAt(filaSeleccionada, 0);
-                    new RealizarPagoFrm(idPedido).setVisible(true);
-                    dispose(); // Cerrar el formulario actual
+                    String estadoPedido = (String) modelo.getValueAt(filaSeleccionada, 2); // Suponiendo que la columna 2 es el estado
+
+                    // Verificar si el pedido ya está pagado
+                    if ("Pagado".equals(estadoPedido)) {
+                        JOptionPane.showMessageDialog(null, "El pedido ya está pagado.");
+                    } else {
+                        new RealizarPagoFrm(idPedido).setVisible(true);
+                        dispose(); // Cerrar el formulario actual
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Por favor, selecciona un pedido.");
                 }
@@ -84,6 +91,7 @@ public class AdministrarPedidosFrm extends javax.swing.JFrame {
 
         cargarPedidos();
     }
+    
 
     private void cargarPedidos() {
         List<Pedido> pedidos = fachada.getControlPedido().consultarPedidos();
