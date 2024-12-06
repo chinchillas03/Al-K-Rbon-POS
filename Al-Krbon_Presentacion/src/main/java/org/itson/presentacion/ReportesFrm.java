@@ -42,16 +42,22 @@ public class ReportesFrm extends javax.swing.JFrame {
         fachada = new FachadaNegocio();
     }
 
-    public void mostrarPantallaReportes(){
+    public void mostrarPantallaReportes() {
         this.setVisible(true);
     }
-    
-    public void ocultarPantallaReportes(){
+
+    public void ocultarPantallaReportes() {
         this.setVisible(false);
     }
-    
+
     private void generarReporte() {
         try {
+
+            if (dpInicio.getDate() == null || dpFinal.getDate() == null) {
+                JOptionPane.showMessageDialog(this, "Por favor selecciona ambas fechas.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             Date fechaInicio = Date.from(dpInicio.getDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
             Date fechaFinal = Date.from(dpFinal.getDate().atTime(23, 59, 59).atZone(ZoneId.systemDefault()).toInstant());
 
@@ -59,7 +65,7 @@ public class ReportesFrm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Por favor selecciona ambas fechas.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            
+
             if (fechaInicio.after(fechaFinal)) {
                 JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser mayor a la fecha final.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -71,7 +77,7 @@ public class ReportesFrm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "No hay datos para el rango de fechas seleccionado.", "Sin datos", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            
+
             double totalVendido = pedidos.stream().mapToDouble(Pedido::getTotal).sum();
             String totalVendidoFormateado = String.format("%.2f", totalVendido);
 
@@ -85,9 +91,9 @@ public class ReportesFrm extends javax.swing.JFrame {
             parametros.put("totalVendido", totalVendidoFormateado);
 
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(pedidos);
-            
+
             JasperPrint jasperPrint = JasperFillManager.fillReport(rutaReporte, parametros, dataSource);
-            
+
             JasperViewer viewer = new JasperViewer(jasperPrint, false);
             viewer.setTitle("Reporte de Ventas - Al Krbon");
             viewer.setVisible(true);

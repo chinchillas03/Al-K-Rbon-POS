@@ -10,6 +10,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -307,7 +309,11 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
                 pedido.setEstado("Pendiente");
                 pedido.setOpinion("Por favor, no demoren.");
                 pedido.setCalificacion(9.99);
-                pedido.setTotal(totalConDescuento > 0 ? totalConDescuento : totalPedido);
+                BigDecimal totalPedidoDecimal = BigDecimal.valueOf(totalPedido).setScale(2, RoundingMode.HALF_UP);
+                BigDecimal totalConDescuentoDecimal = BigDecimal.valueOf(totalConDescuento).setScale(2, RoundingMode.HALF_UP);
+                double totalFinal = totalConDescuentoDecimal.compareTo(BigDecimal.ZERO) > 0 ? totalConDescuentoDecimal.doubleValue() : totalPedidoDecimal.doubleValue();
+                pedido.setTotal(totalFinal);
+                // pedido.setTotal(totalConDescuento > 0 ? totalConDescuento : totalPedido);
 
                 for (int i = 0; i < modeloPedido.getRowCount(); i++) {
                     String nombreProducto = (String) modeloPedido.getValueAt(i, 0);
@@ -324,7 +330,7 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
                         ProductoPedido productoPedido = new ProductoPedido();
                         productoPedido.setProducto(producto);
                         productoPedido.setCantidad(cantidad);
-                        double precioRedondeado = (Math.round(producto.getPrecio()*100.0)/100.0);
+                        double precioRedondeado = (Math.round(producto.getPrecio() * 100.0) / 100.0);
                         productoPedido.setPrecio(precioRedondeado);
                         productoPedido.setComentarios(comentarioProducto);
 
@@ -423,14 +429,14 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
         }
     }
 
-    public void mostrarCrearPedido(){
+    public void mostrarCrearPedido() {
         this.setVisible(true);
     }
-    
-    public void ocultarCrearPedido(){
+
+    public void ocultarCrearPedido() {
         this.setVisible(false);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

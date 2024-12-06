@@ -135,30 +135,30 @@ public class AgregarProductosFrm extends javax.swing.JFrame {
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("Agregar producto");
 
-        lblDesc.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
+        lblDesc.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         lblDesc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblDesc.setText("Descripción del producto");
 
-        lblPrecio.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
+        lblPrecio.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         lblPrecio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblPrecio.setText("Precio");
 
-        lblNombre.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
+        lblNombre.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         lblNombre.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblNombre.setText("Nombre del producto");
 
         tfPrecio.setBackground(new java.awt.Color(255, 255, 255));
-        tfPrecio.setFont(new java.awt.Font("Arial", 0, 30)); // NOI18N
+        tfPrecio.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         tfPrecio.setForeground(new java.awt.Color(0, 0, 0));
         tfPrecio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         tfNombre.setBackground(new java.awt.Color(255, 255, 255));
-        tfNombre.setFont(new java.awt.Font("Arial", 0, 30)); // NOI18N
+        tfNombre.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         tfNombre.setForeground(new java.awt.Color(0, 0, 0));
         tfNombre.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         btnAgregarProducto.setBackground(new java.awt.Color(0, 0, 255));
-        btnAgregarProducto.setFont(new java.awt.Font("Arial Black", 1, 32)); // NOI18N
+        btnAgregarProducto.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         btnAgregarProducto.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregarProducto.setText("Agregar producto");
         btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -169,7 +169,7 @@ public class AgregarProductosFrm extends javax.swing.JFrame {
 
         txaDesc.setBackground(new java.awt.Color(255, 255, 255));
         txaDesc.setColumns(20);
-        txaDesc.setFont(new java.awt.Font("Arial", 0, 30)); // NOI18N
+        txaDesc.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         txaDesc.setForeground(new java.awt.Color(0, 0, 0));
         txaDesc.setRows(5);
         txaDesc.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -195,24 +195,26 @@ public class AgregarProductosFrm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(btnRegresarAdminProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(521, 521, 521)
+                .addGap(260, 260, 260)
                 .addComponent(lblTitulo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(360, Short.MAX_VALUE)
+                .addContainerGap(98, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAgregarProducto)
+                    .addComponent(lblDesc)
+                    .addComponent(btnAgregarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
                             .addComponent(lblNombre)
-                            .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblDesc))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(spDesc)
-                            .addComponent(tfPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(lblPrecio, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(comboCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(360, 360, 360))
+                            .addGap(739, 739, 739))
+                        .addComponent(lblPrecio, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfPrecio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1021, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(spDesc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1021, Short.MAX_VALUE)
+                                .addComponent(tfNombre, javax.swing.GroupLayout.Alignment.LEADING)))))
+                .addGap(188, 188, 188))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,22 +223,22 @@ public class AgregarProductosFrm extends javax.swing.JFrame {
                     .addComponent(btnRegresarAdminProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTitulo))
                 .addGap(29, 29, 29)
-                .addComponent(comboCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(comboCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(lblNombre)
-                .addGap(18, 18, 18)
-                .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(lblDesc)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(spDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(spDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
                 .addComponent(lblPrecio)
                 .addGap(18, 18, 18)
                 .addComponent(tfPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
-                .addComponent(btnAgregarProducto)
-                .addGap(46, 46, 46))
+                .addGap(31, 31, 31)
+                .addComponent(btnAgregarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         pack();

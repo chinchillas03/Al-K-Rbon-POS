@@ -123,27 +123,27 @@ public class EditarProductosFrm extends javax.swing.JFrame {
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("Editar producto");
 
-        lblDesc.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
+        lblDesc.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         lblDesc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblDesc.setText("Descripción del producto");
 
-        lblNombre.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
+        lblNombre.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         lblNombre.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblNombre.setText("Nombre del producto");
 
         tfPrecio.setBackground(new java.awt.Color(255, 255, 255));
-        tfPrecio.setFont(new java.awt.Font("Arial", 0, 30)); // NOI18N
+        tfPrecio.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         tfPrecio.setForeground(new java.awt.Color(0, 0, 0));
         tfPrecio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         tfNombre.setBackground(new java.awt.Color(255, 255, 255));
-        tfNombre.setFont(new java.awt.Font("Arial", 0, 30)); // NOI18N
+        tfNombre.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         tfNombre.setForeground(new java.awt.Color(0, 0, 0));
         tfNombre.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         txaDesc.setBackground(new java.awt.Color(255, 255, 255));
         txaDesc.setColumns(20);
-        txaDesc.setFont(new java.awt.Font("Arial", 0, 30)); // NOI18N
+        txaDesc.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         txaDesc.setForeground(new java.awt.Color(0, 0, 0));
         txaDesc.setRows(5);
         txaDesc.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -159,12 +159,12 @@ public class EditarProductosFrm extends javax.swing.JFrame {
             }
         });
 
-        lblDesc1.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
+        lblDesc1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         lblDesc1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblDesc1.setText("Precio");
 
         btnEditar.setBackground(new java.awt.Color(102, 255, 102));
-        btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
+        btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnEditar.setForeground(new java.awt.Color(255, 255, 255));
         btnEditar.setText("Editar producto");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -174,11 +174,11 @@ public class EditarProductosFrm extends javax.swing.JFrame {
         });
 
         comboEstado.setBackground(new java.awt.Color(255, 255, 255));
-        comboEstado.setFont(new java.awt.Font("Arial", 1, 32)); // NOI18N
+        comboEstado.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         comboEstado.setForeground(new java.awt.Color(0, 0, 0));
         comboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         jLabel1.setText("Estado del producto");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -189,22 +189,22 @@ public class EditarProductosFrm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(618, 618, 618)
+                        .addGap(165, 165, 165)
                         .addComponent(lblTitulo))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(354, 354, 354)
+                        .addGap(152, 152, 152)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDesc1)
-                            .addComponent(lblDesc)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblDesc1)
+                                .addComponent(lblDesc)
                                 .addComponent(lblNombre)
+                                .addComponent(jLabel1)
+                                .addComponent(comboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(spDesc, javax.swing.GroupLayout.DEFAULT_SIZE, 875, Short.MAX_VALUE)
                                 .addComponent(tfNombre)
-                                .addComponent(spDesc)
-                                .addComponent(tfPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))))
-                .addContainerGap(366, Short.MAX_VALUE))
+                                .addComponent(tfPrecio)))))
+                .addContainerGap(188, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,25 +212,25 @@ public class EditarProductosFrm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTitulo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(18, 30, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(comboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(comboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
                 .addComponent(lblNombre)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblDesc)
-                .addGap(18, 18, 18)
-                .addComponent(spDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(spDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblDesc1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(tfPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
+                .addGap(113, 113, 113))
         );
 
         pack();
