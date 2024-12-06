@@ -52,28 +52,30 @@ public class ProductoDAO implements IProducto {
     @Override
     public Producto eliminarProducto(Long productoId) {
         EntityManager em = null;
-        Producto productoEliminado = null;
+        Producto productoActualizado = null;
         try {
             em = manager.createEntityManager();
-            em.getTransaction().begin(); 
+            em.getTransaction().begin();
             Producto producto = em.find(Producto.class, productoId);
             if (producto != null) {
-                productoEliminado = producto; 
-                em.remove(producto); 
+                producto.setActivo(false);
+                productoActualizado = producto;
+                em.merge(producto);
             } else {
                 throw new Exception("Producto no encontrado");
             }
-
             em.getTransaction().commit();
         } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
+            if (em != null && em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            throw new RuntimeException("Error al eliminar producto", e);
+            throw new RuntimeException("Error al actualizar el estado del producto", e);
         } finally {
-            em.close();
+            if (em != null) {
+                em.close();
+            }
         }
-        return productoEliminado;
+        return productoActualizado;
     }
 
     @Override

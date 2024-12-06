@@ -36,27 +36,46 @@ public class AlKrbon_Persistencia {
 //            }
 
         try {
-            List<Producto> listaProductos = new ArrayList<>();
-            List<Categoria> listaCategorias = new ArrayList<>();
-            Categoria entradas = persis.consultarCategorias().get(2);
-            Categoria paquetes = persis.consultarCategorias().get(3);
             
-            Producto PurePapa = new Producto();
-            listaProductos.add(PurePapa);
-            PurePapa.setNombre("Pure Papa");
-            PurePapa.setDescripcion("Plato grande de pure de papa");
-            PurePapa.setPrecio(49.99);
-            PurePapa.setCategoria(persis.consultarCategorias().get(2));
-            persis.registrarProducto(PurePapa);
+            Categoria cat = new Categoria();
+            cat.setDescripcion("Hamburguesas");
+            persis.registrarCategoria(cat);
             
-            Producto Hamburguesas3 = new Producto();
-            listaProductos.add(Hamburguesas3);
-            Hamburguesas3.setNombre("3 Hamburguesas");
-            Hamburguesas3.setDescripcion("Paquete de 3 hamburguesas sencillas");
-            Hamburguesas3.setPrecio(119.99);
-            Hamburguesas3.setCategoria(persis.consultarCategorias().get(3));
-            persis.registrarProducto(Hamburguesas3);
+            Categoria cat2 = new Categoria();
+            cat2.setDescripcion("Bebidas");
+            persis.registrarCategoria(cat2);
+            
+            Categoria cat3 = new Categoria();
+            cat3.setDescripcion("Paquetes");
+            persis.registrarCategoria(cat3);
+            
+            Categoria cat4 = new Categoria();
+            cat4.setDescripcion("Entradas");
+            persis.registrarCategoria(cat4);
+            
+//            List<Producto> listaProductos = new ArrayList<>();
+//            List<Categoria> listaCategorias = new ArrayList<>();
+//            Categoria entradas = persis.consultarCategorias().get(2);
+//            Categoria paquetes = persis.consultarCategorias().get(3);
+//            
+//            Producto PurePapa = new Producto();
+//            listaProductos.add(PurePapa);
+//            PurePapa.setNombre("Pure Papa");
+//            PurePapa.setDescripcion("Plato grande de pure de papa");
+//            PurePapa.setPrecio(49.99);
+//            PurePapa.setCategoria(persis.consultarCategorias().get(2));
+//            persis.registrarProducto(PurePapa);
+//            
+//            Producto Hamburguesas3 = new Producto();
+//            listaProductos.add(Hamburguesas3);
+//            Hamburguesas3.setNombre("3 Hamburguesas");
+//            Hamburguesas3.setDescripcion("Paquete de 3 hamburguesas sencillas");
+//            Hamburguesas3.setPrecio(119.99);
+//            Hamburguesas3.setCategoria(persis.consultarCategorias().get(3));
+//            persis.registrarProducto(Hamburguesas3);
 
+
+                System.out.println(cat.getDescripcion());
 //            Extra salsaBBQ = new Extra();
 //            salsaBBQ.setDescripcion("");
 //            salsaBBQ.setPrecioExtra(10.0);

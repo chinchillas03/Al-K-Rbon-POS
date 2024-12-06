@@ -66,11 +66,18 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
             }
             List<Producto> listaProductos = fachada.getControlProducto().consultarProductosPorCategoria(categoriaId);
             for (Producto p : listaProductos) {
+                String estado = null;
+                if (p.isActivo() == true) {
+                    estado = "Activo";
+                }else{
+                    estado = "Inactivo";
+                }
                 Object[] fila = {
                     p.getId(),
                     p.getNombre(),
                     p.getPrecio(),
-                    p.getDescripcion()
+                    p.getDescripcion(),
+                    estado
                 };
                 modeloTabla.addRow(fila);
             }
@@ -120,19 +127,18 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
     }
 
     private void eliminarProducto() {
-//        int filaseleccionada;
-//        try {
-//            filaseleccionada = tablaProductos.getSelectedRow();
-//            if (filaseleccionada == -1) {
-//                JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila.");
-//            } else {
-//                Long productoId = (Long) tablaProductos.getValueAt(filaseleccionada, 0);
-//                fachada.getControlProducto().eliminarProducto((Long)productoId);
-//            }
-//            tablaProductos.repaint();
-//        } catch (Exception ex) {
-//            JOptionPane.showMessageDialog(null, "Error: " + ex + "\nInténtelo nuevamente", "Error En la Operacion.", JOptionPane.ERROR_MESSAGE);
-//        }
+        int filaseleccionada;
+        try {
+            filaseleccionada = tablaProductos.getSelectedRow();
+            if (filaseleccionada == -1) {
+                JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila.");
+            } else {
+                Long productoId = (Long) tablaProductos.getValueAt(filaseleccionada, 0);
+                fachada.getControlProducto().eliminarProducto((Long)productoId);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex + "\nInténtelo nuevamente", "Error En la Operacion.", JOptionPane.ERROR_MESSAGE);
+        }      
     }
     
     /**
@@ -180,14 +186,14 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Nombre", "Precio", "Descripción"
+                "Id", "Nombre", "Precio", "Descripción", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -328,6 +334,7 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
     private void btnEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductoActionPerformed
         // TODO add your handling code here:
         this.eliminarProducto();
+        this.tablaProductos.repaint();
     }//GEN-LAST:event_btnEliminarProductoActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -337,45 +344,6 @@ public class AdministrarProductosFrm extends javax.swing.JFrame {
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
         this.mostrarAgregarProducto();
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdministrarProductosFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdministrarProductosFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdministrarProductosFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdministrarProductosFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AdministrarProductosFrm().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarProducto;
     private javax.swing.JButton btnEditarProducto;

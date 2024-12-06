@@ -34,6 +34,8 @@ public class Producto implements Serializable {
     private String nombre;
     @Column(name = "descripcion", nullable = false, length = 80)
     private String descripcion;
+    @Column(name = "estado", nullable = false)
+    private boolean estado;
     @Column(name = "precio", nullable = false, length = 10)
     private double precio;
     @ManyToOne
@@ -50,6 +52,16 @@ public class Producto implements Serializable {
     public Producto() {
     }
 
+    public Producto(Long id, String nombre, String descripcion, boolean estado, double precio, Categoria categoria, List<Extra> extras) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.estado = estado;
+        this.precio = precio;
+        this.categoria = categoria;
+        this.extras = extras;
+    }
+
     public Producto(Long id, String nombre, String descripcion, double precio, Categoria categoria, List<Extra> extras) {
         this.id = id;
         this.nombre = nombre;
@@ -61,6 +73,14 @@ public class Producto implements Serializable {
 
     public Categoria getCategoria() {
         return categoria;
+    }
+
+    public boolean isActivo() {
+        return estado;
+    }
+
+    public void setActivo(boolean estado) {
+        this.estado = estado;
     }
 
     public void setCategoria(Categoria categoria) {

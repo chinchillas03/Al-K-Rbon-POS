@@ -16,4 +16,5 @@ public interface IControlCategoria {
     Categoria eliminarCategoria(Categoria producto); 
     Categoria actualizarCategoria(Categoria producto);
     List<Categoria> consultarCategorias();
+    Categoria consultarCategoriaPorId(Long id);
 }

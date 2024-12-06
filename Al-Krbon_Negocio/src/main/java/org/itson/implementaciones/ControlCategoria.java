@@ -41,5 +41,10 @@ public class ControlCategoria implements IControlCategoria {
     public List<Categoria> consultarCategorias() {
         return fachada.consultarCategorias();
     }
+
+    @Override
+    public Categoria consultarCategoriaPorId(Long id) {
+        return fachada.consultarCategoriaPorId(id);
+    }
     
 }

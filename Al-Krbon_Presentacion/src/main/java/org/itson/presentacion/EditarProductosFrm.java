@@ -49,6 +49,15 @@ public class EditarProductosFrm extends javax.swing.JFrame {
         admin.mostrarPantallaAdminProductos();
         this.ocultarEditarProducto();
     }
+    
+    private boolean obtenerEstado(){
+        String categoriaSeleccionada = (String) comboEstado.getSelectedItem();
+        if (categoriaSeleccionada == "Activo") {
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     private void editarProducto() {
         try {
@@ -67,6 +76,7 @@ public class EditarProductosFrm extends javax.swing.JFrame {
             productoEditar.setNombre(tfNombre.getText());
             productoEditar.setDescripcion(txaDesc.getText());
             productoEditar.setPrecio(Double.parseDouble(tfPrecio.getText()));
+            productoEditar.setActivo(obtenerEstado());
             fachada.getControlProducto().actualizarProducto(productoEditar);
             JOptionPane.showMessageDialog(null, "\nProducto actualizado correctamente", "Producto actualizado", JOptionPane.INFORMATION_MESSAGE);
             this.mostrarPantallaAdministrarProd();
@@ -103,6 +113,8 @@ public class EditarProductosFrm extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         lblDesc1 = new javax.swing.JLabel();
         btnEditar = new javax.swing.JButton();
+        comboEstado = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(6);
@@ -161,6 +173,14 @@ public class EditarProductosFrm extends javax.swing.JFrame {
             }
         });
 
+        comboEstado.setBackground(new java.awt.Color(255, 255, 255));
+        comboEstado.setFont(new java.awt.Font("Arial", 1, 32)); // NOI18N
+        comboEstado.setForeground(new java.awt.Color(0, 0, 0));
+        comboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel1.setText("Estado del producto");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -181,7 +201,9 @@ public class EditarProductosFrm extends javax.swing.JFrame {
                                 .addComponent(tfNombre)
                                 .addComponent(spDesc)
                                 .addComponent(tfPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))))
                 .addContainerGap(366, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -190,21 +212,25 @@ public class EditarProductosFrm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTitulo))
-                .addGap(75, 75, 75)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(comboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(lblNombre)
                 .addGap(18, 18, 18)
                 .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addComponent(lblDesc)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addComponent(spDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(lblDesc1)
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
                 .addComponent(tfPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
+                .addGap(32, 32, 32)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80))
+                .addGap(35, 35, 35))
         );
 
         pack();
@@ -223,6 +249,8 @@ public class EditarProductosFrm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JComboBox<String> comboEstado;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblDesc;
     private javax.swing.JLabel lblDesc1;
     private javax.swing.JLabel lblNombre;

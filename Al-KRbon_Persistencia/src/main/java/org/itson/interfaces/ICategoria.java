@@ -21,4 +21,6 @@ public interface ICategoria {
     
     public List<Categoria> consultarCategorias();
     
+    public Categoria consultarCategoriaPorId(Long id);
+    
 }

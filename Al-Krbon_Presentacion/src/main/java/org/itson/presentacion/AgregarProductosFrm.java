@@ -4,21 +4,49 @@
  */
 package org.itson.presentacion;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import org.itson.dominio.Categoria;
+import org.itson.dominio.Producto;
+import org.itson.implementaciones.FachadaNegocio;
+
 /**
  *
  * @author Manuel Flores
  */
 public class AgregarProductosFrm extends javax.swing.JFrame {
 
+    Map<String, Long> categoriaMap = new HashMap<>(); 
+    FachadaNegocio fachada = new FachadaNegocio();
+    Producto productoAgregar = new Producto();
+    List<Categoria> categorias = new LinkedList<>();
+    
     /**
      * Creates new form AgregarProductos
      */
     public AgregarProductosFrm() {
         initComponents();
+        this.llenarComboxCategorias();
         this.setExtendedState(MAXIMIZED_BOTH);
     }
 
-    public void mostrarAgregarProducto(){
+    private void llenarComboxCategorias() {
+        try {
+            categorias = new LinkedList<>();
+            categorias = fachada.getControlCategoria().consultarCategorias();
+            for (Categoria categoria : categorias) {
+                categoriaMap.put(categoria.getDescripcion(), categoria.getId());
+                comboCategorias.addItem(categoria.getDescripcion());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void mostrarAgregarProducto() {
         this.setVisible(true);
     }
     
@@ -30,6 +58,53 @@ public class AgregarProductosFrm extends javax.swing.JFrame {
         AdministrarProductosFrm admin = new AdministrarProductosFrm();
         admin.mostrarPantallaAdminProductos();
         this.ocultarAgregarProducto();
+    }
+    
+    private void agregarProducto() {
+        try {
+            if (tfNombre.getText().isEmpty() || tfNombre.getText().isBlank()) {
+                JOptionPane.showMessageDialog(null, "\nNombre vacio o en blanco", "Error En la Operacion.", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (txaDesc.getText().isEmpty() || txaDesc.getText().isBlank()) {
+                JOptionPane.showMessageDialog(null, "\nDescripcion vacia o en blanco", "Error En la Operacion.", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (tfPrecio.getText().isEmpty() || tfPrecio.getText().isBlank() || !esNumeroValido(tfPrecio.getText())) {
+                JOptionPane.showMessageDialog(null, "\nPrecio no valido", "Error En la Operacion.", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            productoAgregar.setNombre(tfNombre.getText());
+            productoAgregar.setDescripcion(txaDesc.getText());
+            productoAgregar.setPrecio(Double.parseDouble(tfPrecio.getText()));
+            String categoriaSeleccionada = (String) comboCategorias.getSelectedItem();
+            productoAgregar.setActivo(true);
+            Long categoriaId = categoriaMap.get(categoriaSeleccionada);
+            productoAgregar.setCategoria(consultarCategoriaSeleccionada(categoriaId));
+            fachada.getControlProducto().registrarProducto(productoAgregar);
+            JOptionPane.showMessageDialog(null, "\nProducto agregado correctamente", "Producto agregado", JOptionPane.INFORMATION_MESSAGE);      
+            this.mostrarAdministrarProductos();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "\nError al agregar en la base de datos", "Error En la Operacion.", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private Categoria consultarCategoriaSeleccionada(Long categoriaId) {
+        try {
+            return fachada.getControlCategoria().consultarCategoriaPorId(categoriaId);
+        } catch (Exception e) {
+            System.out.println("Error al consultar la categoría: " + e.getMessage());
+            return null; // Devuelve null en caso de error
+        }
+    }
+
+    public boolean esNumeroValido(String texto) {
+        try {
+            Double.parseDouble(texto); 
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
     
     /**
@@ -51,6 +126,7 @@ public class AgregarProductosFrm extends javax.swing.JFrame {
         spDesc = new javax.swing.JScrollPane();
         txaDesc = new javax.swing.JTextArea();
         btnRegresarAdminProductos = new javax.swing.JButton();
+        comboCategorias = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(6);
@@ -71,19 +147,30 @@ public class AgregarProductosFrm extends javax.swing.JFrame {
         lblNombre.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblNombre.setText("Nombre del producto");
 
-        tfPrecio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tfPrecio.setBackground(new java.awt.Color(255, 255, 255));
+        tfPrecio.setFont(new java.awt.Font("Arial", 0, 30)); // NOI18N
+        tfPrecio.setForeground(new java.awt.Color(0, 0, 0));
         tfPrecio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        tfNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tfNombre.setBackground(new java.awt.Color(255, 255, 255));
+        tfNombre.setFont(new java.awt.Font("Arial", 0, 30)); // NOI18N
+        tfNombre.setForeground(new java.awt.Color(0, 0, 0));
         tfNombre.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         btnAgregarProducto.setBackground(new java.awt.Color(0, 0, 255));
         btnAgregarProducto.setFont(new java.awt.Font("Arial Black", 1, 32)); // NOI18N
         btnAgregarProducto.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregarProducto.setText("Agregar producto");
+        btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarProductoActionPerformed(evt);
+            }
+        });
 
+        txaDesc.setBackground(new java.awt.Color(255, 255, 255));
         txaDesc.setColumns(20);
-        txaDesc.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txaDesc.setFont(new java.awt.Font("Arial", 0, 30)); // NOI18N
+        txaDesc.setForeground(new java.awt.Color(0, 0, 0));
         txaDesc.setRows(5);
         txaDesc.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         spDesc.setViewportView(txaDesc);
@@ -97,6 +184,10 @@ public class AgregarProductosFrm extends javax.swing.JFrame {
                 btnRegresarAdminProductosActionPerformed(evt);
             }
         });
+
+        comboCategorias.setBackground(new java.awt.Color(255, 255, 255));
+        comboCategorias.setFont(new java.awt.Font("Arial", 1, 32)); // NOI18N
+        comboCategorias.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,7 +210,8 @@ public class AgregarProductosFrm extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(spDesc)
                             .addComponent(tfPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(lblPrecio, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(lblPrecio, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(comboCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(360, 360, 360))
         );
         layout.setVerticalGroup(
@@ -128,7 +220,9 @@ public class AgregarProductosFrm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegresarAdminProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTitulo))
-                .addGap(62, 62, 62)
+                .addGap(29, 29, 29)
+                .addComponent(comboCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(lblNombre)
                 .addGap(18, 18, 18)
                 .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -140,9 +234,9 @@ public class AgregarProductosFrm extends javax.swing.JFrame {
                 .addComponent(lblPrecio)
                 .addGap(18, 18, 18)
                 .addComponent(tfPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88)
+                .addGap(59, 59, 59)
                 .addComponent(btnAgregarProducto)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addGap(46, 46, 46))
         );
 
         pack();
@@ -154,51 +248,15 @@ public class AgregarProductosFrm extends javax.swing.JFrame {
         this.mostrarAdministrarProductos();
     }//GEN-LAST:event_btnRegresarAdminProductosActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AgregarProductosFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AgregarProductosFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AgregarProductosFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AgregarProductosFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AgregarProductosFrm().setVisible(true);
-            }
-        });
-    }
+    private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
+        // TODO add your handling code here:
+        this.agregarProducto();
+    }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarProducto;
     private javax.swing.JButton btnRegresarAdminProductos;
+    private javax.swing.JComboBox<String> comboCategorias;
     private javax.swing.JLabel lblDesc;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPrecio;

@@ -105,5 +105,22 @@ public class CategoriaDAO implements ICategoria{
         }
         return categorias;
     }
-    
+
+    @Override
+    public Categoria consultarCategoriaPorId(Long categoriaId) {
+        EntityManager em = null;
+        try {
+            em = manager.createEntityManager();
+            return em.createQuery("SELECT c FROM Categoria c WHERE c.id = :id", Categoria.class)
+                    .setParameter("id", categoriaId)
+                    .getSingleResult();
+        } catch (Exception e) {
+            throw new RuntimeException("Error al consultar la categoría con ID: " + categoriaId, e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
 }

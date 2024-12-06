@@ -32,6 +32,8 @@ public interface IFachada {
     
     public List<Categoria> consultarCategorias();
     
+    public Categoria consultarCategoriaPorId(Long id);
+    
     public Cliente registrarCliente(Cliente cliente);
     
     public Cliente eliminarCliente(Cliente cliente);

@@ -72,6 +72,12 @@ public class FachadaDAO implements IFachada{
     public List<Categoria> consultarCategorias() {
         return categoriaDAO.consultarCategorias();
     }
+    
+    @Override
+    public Categoria consultarCategoriaPorId(Long id) {
+        return categoriaDAO.consultarCategoriaPorId(id);
+    }
+    
 
     @Override
     public Cliente registrarCliente(Cliente cliente) {
