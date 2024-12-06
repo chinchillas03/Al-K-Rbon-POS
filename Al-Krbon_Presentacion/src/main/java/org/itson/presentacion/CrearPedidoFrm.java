@@ -341,6 +341,9 @@ public class CrearPedidoFrm extends javax.swing.JFrame {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Error al guardar el pedido: " + ex.getMessage());
                 }
+                PantallaPrincipalFrm principal = new PantallaPrincipalFrm();
+                principal.mostrarPantallaPrincipal();
+                ocultarCrearPedido();
             }
         });
 
