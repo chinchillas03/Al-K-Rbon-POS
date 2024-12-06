@@ -23,11 +23,11 @@ import javax.persistence.Table;
  * @author Usuario
  */
 @Entity
-@Table (name = "productos")
-public class Producto implements Serializable{
-    
+@Table(name = "productos")
+public class Producto implements Serializable {
+
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "nombre", nullable = false, length = 50)
@@ -36,14 +36,14 @@ public class Producto implements Serializable{
     private String descripcion;
     @Column(name = "precio", nullable = false, length = 10)
     private double precio;
-    @ManyToOne (cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "categoriaId", nullable = false)
     private Categoria categoria;
     @ManyToMany
     @JoinTable(
-        name = "productosExtras",
-        joinColumns = @JoinColumn(name = "productoId"),
-        inverseJoinColumns = @JoinColumn(name = "extraId")
+            name = "productosExtras",
+            joinColumns = @JoinColumn(name = "productoId"),
+            inverseJoinColumns = @JoinColumn(name = "extraId")
     )
     private List<Extra> extras;
 
@@ -113,9 +113,9 @@ public class Producto implements Serializable{
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-    
-    public void agregarExtra (Extra extra){
+
+    public void agregarExtra(Extra extra) {
         this.extras.add(extra);
     }
-    
+
 }
