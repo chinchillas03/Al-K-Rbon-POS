@@ -39,6 +39,26 @@ public class RealizarPagoFrm extends javax.swing.JFrame {
                 .findFirst()
                 .orElse(null);
 
+        JButton btnRegresar = new JButton("<");
+        btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 80)); // Ajusta el tamaño de la fuente
+        btnRegresar.setPreferredSize(new java.awt.Dimension(100, 100)); // Establece el tamaño del botón
+
+// Crear un JPanel para contener el botón
+        JPanel panelRegresar = new JPanel();
+        panelRegresar.setLayout(new FlowLayout(FlowLayout.LEFT)); // Alinear a la izquierda
+        panelRegresar.add(btnRegresar); // Agregar el botón al panel
+
+        btnRegresar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdministrarPedidosFrm adminPedidos = new AdministrarPedidosFrm();
+                adminPedidos.mostrarAdministrarPedidos();
+                dispose(); // Cierra la ventana actual
+            }
+        });
+
+        add(panelRegresar, BorderLayout.NORTH);
+
         if (pedido != null) {
             // Panel para el nombre del cliente
             JPanel panelCliente = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -59,11 +79,11 @@ public class RealizarPagoFrm extends javax.swing.JFrame {
             JTable tablaProductos = new JTable(modelo);
             for (ProductoPedido productoPedido : pedido.getProductos()) {
                 modelo.addRow(new Object[]{
-                        productoPedido.getProducto().getNombre(),
-                        productoPedido.getProducto().getDescripcion(),
-                        productoPedido.getPrecio(),
-                        productoPedido.getCantidad(),
-                        productoPedido.getComentarios()
+                    productoPedido.getProducto().getNombre(),
+                    productoPedido.getProducto().getDescripcion(),
+                    productoPedido.getPrecio(),
+                    productoPedido.getCantidad(),
+                    productoPedido.getComentarios()
                 });
             }
             JScrollPane scrollPane = new JScrollPane(tablaProductos);
@@ -109,6 +129,7 @@ public class RealizarPagoFrm extends javax.swing.JFrame {
             add(panelPago, BorderLayout.SOUTH);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -137,7 +158,6 @@ public class RealizarPagoFrm extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

@@ -5,12 +5,14 @@
 package org.itson.presentacion;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -22,10 +24,11 @@ import org.itson.implementaciones.FachadaNegocio;
  * @author icedo
  */
 public class AdministrarPedidosFrm extends javax.swing.JFrame {
-    
+
     private JTable tablaPedidos;
     private DefaultTableModel modelo;
     private FachadaNegocio fachada;
+
     /**
      * Creates new form AdministrarPedidosFrm
      */
@@ -37,6 +40,26 @@ public class AdministrarPedidosFrm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+
+        JButton btnRegresar = new JButton("<");
+        btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 80)); // Ajusta el tamaño de la fuente
+        btnRegresar.setPreferredSize(new java.awt.Dimension(100, 100)); // Establece el tamaño del botón
+
+        // Crear un JPanel para contener el botón
+        JPanel panelRegresar = new JPanel();
+        panelRegresar.setLayout(new FlowLayout(FlowLayout.LEFT)); // Alinear a la izquierda
+        panelRegresar.add(btnRegresar); // Agregar el botón al panel
+
+        btnRegresar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PantallaPrincipalFrm principal = new PantallaPrincipalFrm();
+                principal.mostrarPantallaPrincipal();
+                dispose(); // Cierra la ventana actual
+            }
+        });
+
+        add(panelRegresar, BorderLayout.NORTH);
 
         modelo = new DefaultTableModel(new String[]{"ID", "Cliente", "Estado", "Total"}, 0);
         tablaPedidos = new JTable(modelo);
@@ -61,18 +84,19 @@ public class AdministrarPedidosFrm extends javax.swing.JFrame {
 
         cargarPedidos();
     }
+
     private void cargarPedidos() {
         List<Pedido> pedidos = fachada.getControlPedido().consultarPedidos();
         for (Pedido pedido : pedidos) {
             modelo.addRow(new Object[]{pedido.getId(), pedido.getCliente().getNombre(), pedido.getEstado(), pedido.getTotal()});
         }
     }
-    
-    public void mostrarAdministrarPedidos(){
+
+    public void mostrarAdministrarPedidos() {
         this.setVisible(true);
     }
-    
-    public void ocultarAdministrarPedidos(){
+
+    public void ocultarAdministrarPedidos() {
         this.setVisible(false);
     }
 
