@@ -25,19 +25,37 @@ public class AlKrbon_Persistencia {
     public static void main(String[] args) {
         
         FachadaDAO persis = new FachadaDAO();
+        
+//        List<Producto> listaProductos = new ArrayList<>();
+//            List<Categoria> listaCategorias = persis.consultarCategorias();
+//            Categoria paquetes = persis.consultarCategorias().get(2);
+//            Categoria entradas = persis.consultarCategorias().get(3);
+//            
+//            for (int i = 0; i < listaCategorias.size(); i++) {
+//                System.out.println("Categoria "+(i)+" es igual a: "+listaCategorias.get(i).getDescripcion());
+//            }
 
         try {
             List<Producto> listaProductos = new ArrayList<>();
-            Categoria categoria = new Categoria();
-            categoria.setDescripcion("Hamburguesa");
-
-            Producto hamburguesa = new Producto();
-            listaProductos.add(hamburguesa);
-            hamburguesa.setNombre("Doble carne");
-            hamburguesa.setDescripcion("Una hamburguesa doble carne");
-            hamburguesa.setPrecio(40.99);
-            hamburguesa.setCategoria(categoria);
-            persis.registrarProducto(hamburguesa);
+            List<Categoria> listaCategorias = new ArrayList<>();
+            Categoria entradas = persis.consultarCategorias().get(2);
+            Categoria paquetes = persis.consultarCategorias().get(3);
+            
+            Producto PurePapa = new Producto();
+            listaProductos.add(PurePapa);
+            PurePapa.setNombre("Pure Papa");
+            PurePapa.setDescripcion("Plato grande de pure de papa");
+            PurePapa.setPrecio(49.99);
+            PurePapa.setCategoria(persis.consultarCategorias().get(2));
+            persis.registrarProducto(PurePapa);
+            
+            Producto Hamburguesas3 = new Producto();
+            listaProductos.add(Hamburguesas3);
+            Hamburguesas3.setNombre("3 Hamburguesas");
+            Hamburguesas3.setDescripcion("Paquete de 3 hamburguesas sencillas");
+            Hamburguesas3.setPrecio(119.99);
+            Hamburguesas3.setCategoria(persis.consultarCategorias().get(3));
+            persis.registrarProducto(Hamburguesas3);
 
 //            Extra salsaBBQ = new Extra();
 //            salsaBBQ.setDescripcion("");
