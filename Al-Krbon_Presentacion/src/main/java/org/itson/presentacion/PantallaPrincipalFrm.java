@@ -17,6 +17,7 @@ public class PantallaPrincipalFrm extends javax.swing.JFrame {
      */
     public PantallaPrincipalFrm() {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
     }
     
     public void mostrarPantallaPrincipal(){
@@ -69,44 +70,44 @@ public class PantallaPrincipalFrm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jLabel1.setText("¡Bienvenido a Al-KRbon!");
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 64)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("¡Bienvenido a Al-KRbon!");
 
-        btnTomarPedido.setText("Tomar Pedido");
         btnTomarPedido.setBackground(new java.awt.Color(255, 255, 255));
         btnTomarPedido.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         btnTomarPedido.setForeground(new java.awt.Color(0, 0, 0));
+        btnTomarPedido.setText("Tomar Pedido");
         btnTomarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTomarPedidoActionPerformed(evt);
             }
         });
 
-        btnAdministrarProductos.setText("Administrar Productos");
         btnAdministrarProductos.setBackground(new java.awt.Color(255, 255, 255));
         btnAdministrarProductos.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         btnAdministrarProductos.setForeground(new java.awt.Color(0, 0, 0));
+        btnAdministrarProductos.setText("Administrar Productos");
         btnAdministrarProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdministrarProductosActionPerformed(evt);
             }
         });
 
-        btnReportes.setText("Reportes");
         btnReportes.setBackground(new java.awt.Color(255, 255, 255));
         btnReportes.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         btnReportes.setForeground(new java.awt.Color(0, 0, 0));
+        btnReportes.setText("Reportes");
         btnReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReportesActionPerformed(evt);
             }
         });
 
-        btnAdminPedidos.setText("Administrar pedidos");
         btnAdminPedidos.setBackground(new java.awt.Color(255, 255, 255));
         btnAdminPedidos.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         btnAdminPedidos.setForeground(new java.awt.Color(0, 0, 0));
+        btnAdminPedidos.setText("Administrar pedidos");
         btnAdminPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdminPedidosActionPerformed(evt);
@@ -118,24 +119,25 @@ public class PantallaPrincipalFrm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(200, 200, 200)
-                .addComponent(jLabel1)
-                .addContainerGap(200, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnTomarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAdministrarProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAdminPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(365, 365, 365))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(308, 308, 308)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(471, 471, 471)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnTomarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAdministrarProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnReportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAdminPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(390, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(41, 41, 41)
                 .addComponent(jLabel1)
-                .addGap(42, 42, 42)
+                .addGap(116, 116, 116)
                 .addComponent(btnTomarPedido)
                 .addGap(59, 59, 59)
                 .addComponent(btnAdministrarProductos)
@@ -143,7 +145,7 @@ public class PantallaPrincipalFrm extends javax.swing.JFrame {
                 .addComponent(btnReportes)
                 .addGap(53, 53, 53)
                 .addComponent(btnAdminPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(271, Short.MAX_VALUE))
         );
 
         pack();
