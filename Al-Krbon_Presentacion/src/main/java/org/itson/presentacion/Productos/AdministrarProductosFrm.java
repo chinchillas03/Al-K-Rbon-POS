@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package org.itson.presentacion;
+package org.itson.presentacion.Productos;
 
+import org.itson.presentacion.Productos.AgregarProductosFrm;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import org.itson.dominio.Categoria;
 import org.itson.dominio.Producto;
 import org.itson.implementaciones.FachadaNegocio;
+import org.itson.presentacion.PantallaPrincipalFrm;
 
 /**
  *

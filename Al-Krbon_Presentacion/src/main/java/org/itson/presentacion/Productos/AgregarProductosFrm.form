@@ -42,12 +42,10 @@
                           <EmptySpace min="-2" pref="739" max="-2" attributes="0"/>
                       </Group>
                       <Component id="lblPrecio" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                          <Component id="tfPrecio" alignment="0" min="-2" pref="1021" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="spDesc" alignment="0" pref="1021" max="32767" attributes="0"/>
-                              <Component id="tfNombre" alignment="0" max="32767" attributes="0"/>
-                          </Group>
+                      <Component id="tfPrecio" alignment="0" min="-2" pref="1021" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="spDesc" alignment="0" pref="1021" max="32767" attributes="0"/>
+                          <Component id="tfNombre" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
