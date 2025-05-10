@@ -28,15 +28,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Component id="btnRegresar" min="-2" pref="100" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="381" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="207" max="-2" attributes="0"/>
                       <Component id="lblTItulo" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="spProductos" min="-2" pref="1380" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="cboxCategoria" min="-2" pref="422" max="-2" attributes="0"/>
@@ -44,13 +43,14 @@
                               </Group>
                               <EmptySpace min="-2" pref="342" max="-2" attributes="0"/>
                               <Component id="btnEditarProducto" min="-2" pref="200" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                               <Component id="btnEliminarProducto" min="-2" pref="200" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="spProductos" min="-2" pref="1200" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="89" max="32767" attributes="0"/>
+              <EmptySpace pref="120" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -66,12 +66,14 @@
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnAgregarProducto" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
-                  <Component id="btnEditarProducto" min="-2" pref="60" max="-2" attributes="0"/>
-                  <Component id="btnEliminarProducto" min="-2" pref="60" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnEditarProducto" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
+                      <Component id="btnEliminarProducto" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
               <Component id="spProductos" min="-2" pref="472" max="-2" attributes="0"/>
-              <EmptySpace pref="78" max="32767" attributes="0"/>
+              <EmptySpace pref="91" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
