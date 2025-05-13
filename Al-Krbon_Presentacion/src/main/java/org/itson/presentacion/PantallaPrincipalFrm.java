@@ -4,7 +4,7 @@
  */
 package org.itson.presentacion;
 
-import org.itson.presentacion.Productos.AdministrarProductosFrm;
+import org.itson.presentacion.productos.AdministrarProductosFrm;
 
 /**
  *
